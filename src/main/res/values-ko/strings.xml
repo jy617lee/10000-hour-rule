@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">1만 시간의 법칙</string>
+    <string name="final_goal">최종 목표</string>
+    <string name="end">종료 일자</string>
+    <string name="start">시작 일자</string>
+    <string name="time">총 시간</string>
+    <string name="purpose_name">목표이름</string>
+    <string name="purpose_example">운동하기</string>
+    <string name="save_goal">Save Goal</string>
+    <string name="date">2010-09-15</string>
+    <string name="font">NotoSans-Regular.ttf</string>
+    <string name="btnStart">Start</string>
+    <string name="btnStop">Stop</string>
+    <string name="unit">hours</string>
+    <string name="initTime">"00:00:00"</string>
+    <string name="hoursOf">시간 / </string>
+    <string-array name="time_array">
+        <item>100 시간</item>
+        <item>300 시간</item>
+        <item>1000 시간</item>
+        <item>5000 시간</item>
+        <item>10000 시간</item>
+    </string-array>
+</resources>

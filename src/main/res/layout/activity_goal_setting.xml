@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".GoalSettingActivity"
+    android:baselineAligned="false">
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_profile"
+        android:layout_margin="80dp"
+        android:layout_gravity="center"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10"
+       >
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3.7"
+            android:orientation="vertical"
+            android:layout_marginStart="10dp"
+            >
+            <tenthousand.hour.law.outliers.utils.StyledTextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/purpose_name"
+                android:textSize="20sp"
+                app:font="@string/font"
+                android:textColor="#222222"
+                android:textAlignment="center" />
+            <tenthousand.hour.law.outliers.utils.StyledTextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/time"
+                android:textSize="20sp"
+                app:font="@string/font"
+                android:textColor="#222222"
+                android:textAlignment="center"/>
+            <tenthousand.hour.law.outliers.utils.StyledTextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/start"
+                android:textSize="20sp"
+                app:font="@string/font"
+                android:textColor="#222222"
+                android:textAlignment="center"/>
+            <tenthousand.hour.law.outliers.utils.StyledTextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="@string/end"
+                android:textSize="20sp"
+                app:font="@string/font"
+                android:textColor="#222222"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6.3"
+            android:orientation="vertical"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp">
+            <tenthousand.hour.law.outliers.utils.StyledEditTextView
+                android:id="@+id/purposeName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="@string/purpose_example"
+                android:textSize="20sp"
+                app:font="@string/font"
+                android:textColorHint="@drawable/selector"
+                android:focusable="false"
+                />
+            <Spinner
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_gravity="left"
+                android:layout_height="50dp"
+                android:scrollbarSize="20sp"
+                android:entries="@array/time_array"
+                />
+
+            <tenthousand.hour.law.outliers.utils.StyledTextView
+                android:id="@+id/start"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textSize="20sp"
+                android:text="@string/date"
+                app:font="@string/font"/>
+            <tenthousand.hour.law.outliers.utils.StyledTextView
+                android:id="@+id/end"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textSize="20sp"
+                android:text="@string/date"
+                app:font="@string/font"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save_goal"
+            android:layout_gravity="bottom"
+            android:layout_margin="3dp"
+            android:typeface="monospace"
+            android:shadowColor="@android:color/transparent"
+            android:background="@drawable/btn_save"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
+</LinearLayout>
