@@ -151,6 +151,10 @@ public class GoalSettingActivity extends AppCompatActivity {
             date.append(d);
             switch(flag){
                 case Constants.start : {
+                    if(!checkStartDate(year, month+1, day)){
+                        Toast.makeText(getContext(), "Start cannot be later than End", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     start.setText(date);
                     break;
                 }
@@ -173,6 +177,18 @@ public class GoalSettingActivity extends AppCompatActivity {
         } else if(Integer.parseInt(startDate[1]) > month) {
             return false;
         } else if(Integer.parseInt(startDate[2]) > day) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean checkStartDate(int year, int month, int day){
+        String endDate[] = end.getText().toString().split("-");
+        if(Integer.parseInt(endDate[0]) < year){
+            return false;
+        } else if(Integer.parseInt(endDate[1]) < month) {
+            return false;
+        } else if(Integer.parseInt(endDate[2]) < day) {
             return false;
         }
         return true;
