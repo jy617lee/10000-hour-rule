@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,7 +34,7 @@ public class GoalSettingActivity extends AppCompatActivity {
         Log.d(TAG, "btnSave click");
         if(!checkInputs()){
             return;
-        };
+        }
         //get settings
         String mPurposeName = purposeName.getText().toString();
         String mTime = time.getSelectedItem().toString();
@@ -56,7 +57,6 @@ public class GoalSettingActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "No Purpose Name", Toast.LENGTH_SHORT).show();
             return false;
         }
-        String[] endDate = end.getText().toString().split("-");
         return true;
     }
 
@@ -126,7 +126,7 @@ public class GoalSettingActivity extends AppCompatActivity {
             implements DatePickerDialog.OnDateSetListener{
         String flag;
 
-        @Override
+        @Override @NonNull
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             //set flag
             flag = (String) getArguments().get(Constants.flagForStartEnd);
@@ -170,11 +170,9 @@ public class GoalSettingActivity extends AppCompatActivity {
         String startDate[] = start.getText().toString().split("-");
         if(Integer.parseInt(startDate[0]) > year){
             return false;
-        }
-        if(Integer.parseInt(startDate[1]) > month) {
+        } else if(Integer.parseInt(startDate[1]) > month) {
             return false;
-        }
-        if(Integer.parseInt(startDate[2]) > day) {
+        } else if(Integer.parseInt(startDate[2]) > day) {
             return false;
         }
         return true;
