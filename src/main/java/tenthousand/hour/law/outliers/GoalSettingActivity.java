@@ -56,6 +56,7 @@ public class GoalSettingActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "No Purpose Name", Toast.LENGTH_SHORT).show();
             return false;
         }
+        String[] endDate = end.getText().toString().split("-");
         return true;
     }
 
@@ -154,11 +155,29 @@ public class GoalSettingActivity extends AppCompatActivity {
                     break;
                 }
                 case Constants.end : {
+                    if(!checkEndDate(year, month+1, day)){
+                        Toast.makeText(getContext(), "End cannot be earlier than Start", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     end.setText(date);
                     break;
                 }
             }
         }
+    }
+
+    public static boolean checkEndDate(int year, int month, int day){
+        String startDate[] = start.getText().toString().split("-");
+        if(Integer.parseInt(startDate[0]) > year){
+            return false;
+        }
+        if(Integer.parseInt(startDate[1]) > month) {
+            return false;
+        }
+        if(Integer.parseInt(startDate[2]) > day) {
+            return false;
+        }
+        return true;
     }
 
 }
