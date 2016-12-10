@@ -14,6 +14,8 @@
     <string name="unit">hours</string>
     <string name="initTime">"00:00:00"</string>
     <string name="hoursOf">hours of</string>
+    <string name="res_code">resultCode</string>
+    <string name="start_or_stop">startOrStop</string>
     <string-array name="time_array">
         <item>100 hours</item>
         <item>300 hours</item>

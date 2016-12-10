@@ -1,10 +1,12 @@
 package tenthousand.hour.law.outliers;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
@@ -21,6 +23,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import tenthousand.hour.law.outliers.utils.Constants;
 import tenthousand.hour.law.outliers.utils.EndlessScrollListener;
 import tenthousand.hour.law.outliers.utils.StyledTextView;
 
@@ -64,6 +67,29 @@ public class DashboardActivity extends AppCompatActivity {
         setDate();
         setTime();
         setTimer(initTime);
+        setListView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter(Constants.tick);
+        LocalBroadcastManager.getInstance(this).registerReceiver(timerReciever, filter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(timerReciever);
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d(TAG, "onDestroy");
+        super.onDestroy();
+    }
+
+    public void setListView(){
         arrayOfItems = new ArrayList<Item>();
         itemsAdapter = new ItemAdapter(this, arrayOfItems);
         listView.setAdapter(itemsAdapter);
@@ -115,19 +141,19 @@ public class DashboardActivity extends AppCompatActivity {
     public void startTimer(){
         if(btnStart.getText().equals(start)){
             Log.d(TAG, "startTimer click");
-            mTimer.start();
             btnStart.setText(stop);
-
             startTime = dateFormat.format(new Date(System.currentTimeMillis()));
+            startTimerService(start);
             Log.d(TAG, startTime);
         }else{
             //STOP
             Log.d(TAG, "stopTimer click");
-            mTimer.cancel();
+            startTimerService(stop);
             btnStart.setText(start);
             timer.setText(initTime);
             setDuration(curTime);
             curTime = 0;
+            setTimer(initTime);
 
             record = new Records(getStartTime(), getEndTime(), getDuration());
             record.save();
@@ -169,24 +195,6 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     int curTime = 0;
-    Message msg;
-    CountDownTimer mTimer = new CountDownTimer(100000, 1000){
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-            curTime += 1;
-            msg = new Message();
-            msg.arg1 = curTime;
-            handler.sendMessage(msg);
-        }
-
-        @Override
-        public void onFinish() {
-            Log.d(TAG, "timer onFinish");
-            mTimer.start();
-        }
-    };
-
 
     //**이걸 getTimeInFormat이랑 합치자
     int[] getTimeInFormatForListView(int curTime){
@@ -244,22 +252,6 @@ public class DashboardActivity extends AppCompatActivity {
         return res.toString();
     }
 
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            String time = getTimeInFormat(msg.arg1);
-            setTimer(time);
-        }
-    };
-
-    @Override
-    protected void onDestroy() {
-        Log.d(TAG, "onDestroy");
-        super.onDestroy();
-        mTimer.cancel();
-    }
-
     void setGoal(){
         String mGoal = purpose.getPurposeName();
          //+ " " + purpose.getFinalGoal();
@@ -295,4 +287,29 @@ public class DashboardActivity extends AppCompatActivity {
         Log.d(TAG, "secToHour " + sec + " to " + res + "hour");
         return res.toString();
     }
+
+    //====================================
+    //Service
+    //====================================
+    public void startTimerService(String startOrStop){
+        Log.d(TAG, "startTimerService");
+        Intent intent = new Intent(this, TimerService.class);
+        intent.putExtra(Constants.startOrStop, startOrStop);
+        startService(intent);
+    }
+
+    private BroadcastReceiver timerReciever = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+//            Log.d(TAG, "timerReceiver");
+            switch(intent.getAction()){
+                case Constants.tick : {
+                    Bundle bundle = intent.getExtras();
+                    curTime = bundle.getInt(Constants.curTime, 0);
+                    setTimer(getTimeInFormat(curTime));
+                    break;
+                }
+            }
+        }
+    };
 }

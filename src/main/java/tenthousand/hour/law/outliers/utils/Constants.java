@@ -16,5 +16,6 @@ public interface Constants {
     //extra
     String noName = "noName";
     String flagForStartEnd = "flag";
-
+    String startOrStop ="startOrStop";
+    String tick = "tick";
 }
