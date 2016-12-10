@@ -14,12 +14,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DashboardActivity">
+        <activity android:name=".dashboard.DashboardActivity">
         </activity>
 
         <service
             android:name=".TimerService"
-            android:exported="false" />
+            android:exported="false"
+            android:process=":remote"/>
 
         <meta-data android:name="DATABASE" android:value="records.db" />
         <meta-data android:name="VERSION" android:value="2" />

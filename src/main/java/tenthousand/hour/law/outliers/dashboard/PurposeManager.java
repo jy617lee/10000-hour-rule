@@ -1,4 +1,4 @@
-package tenthousand.hour.law.outliers;
+package tenthousand.hour.law.outliers.dashboard;
 
 import android.content.Context;
 import android.content.SharedPreferences;

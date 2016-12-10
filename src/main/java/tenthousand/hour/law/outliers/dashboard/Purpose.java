@@ -1,4 +1,4 @@
-package tenthousand.hour.law.outliers;
+package tenthousand.hour.law.outliers.dashboard;
 
 /**
  * Created by jeeyu_000 on 2016-09-17.

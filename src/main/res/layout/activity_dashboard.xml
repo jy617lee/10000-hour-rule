@@ -13,14 +13,26 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="0dp"
         >
-        <tenthousand.hour.law.outliers.utils.StyledTextView
-            android:id="@+id/goal"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:font="@string/font"
-            android:textSize="40sp"
-            android:layout_gravity="center"
-            android:textColor="#252525"/>
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btnListOrInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="인포"/>
+            <tenthousand.hour.law.outliers.utils.StyledTextView
+                android:id="@+id/goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:font="@string/font"
+                android:textSize="40sp"
+                android:layout_gravity="center"
+                android:textColor="#252525"/>
+        </LinearLayout>
+
         <tenthousand.hour.law.outliers.utils.StyledTextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
@@ -40,6 +52,13 @@
             android:layout_marginTop="2dp"
             android:textColor="#303030"/>
     </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/frDashboard"
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:background="@color/colorAccent"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -69,9 +88,4 @@
             android:text="@string/btnStart"
             android:background="#ffc192"/>
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/dailyRecords"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 </LinearLayout>

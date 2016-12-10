@@ -1,4 +1,4 @@
-package tenthousand.hour.law.outliers;
+package tenthousand.hour.law.outliers.dashboard;
 
 import com.orm.SugarRecord;
 import com.orm.dsl.Unique;

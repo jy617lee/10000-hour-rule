@@ -21,6 +21,8 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import tenthousand.hour.law.outliers.dashboard.DashboardActivity;
+import tenthousand.hour.law.outliers.dashboard.PurposeManager;
 import tenthousand.hour.law.outliers.utils.Constants;
 import tenthousand.hour.law.outliers.utils.StyledEditTextView;
 import tenthousand.hour.law.outliers.utils.StyledTextView;
