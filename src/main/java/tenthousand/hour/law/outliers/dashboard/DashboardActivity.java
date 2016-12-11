@@ -15,16 +15,13 @@ import android.widget.Button;
 import com.orm.SugarContext;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tenthousand.hour.law.outliers.Item;
-import tenthousand.hour.law.outliers.ItemAdapter;
 import tenthousand.hour.law.outliers.R;
 import tenthousand.hour.law.outliers.TimerService;
 import tenthousand.hour.law.outliers.utils.Constants;
@@ -42,7 +39,6 @@ public class DashboardActivity extends AppCompatActivity {
     @BindView(R.id.timer)   StyledTextView timer;
     @BindView(R.id.btnStart)Button btnStart;
     @BindView(R.id.btnListOrInfo)   Button btnListOrInfo;
-//    @BindView(R.id.dailyRecords)    ListView listView;
 
     @BindString(R.string.btnStart) String start;
     @BindString(R.string.btnStop)   String stop;
@@ -53,10 +49,9 @@ public class DashboardActivity extends AppCompatActivity {
     private Records record;
     private String startTime;
     private int duration;
-    ItemAdapter itemsAdapter;
+
     SimpleDateFormat dateFormat;
-    List<Records> records;
-    ArrayList<Item> arrayOfItems;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
@@ -64,7 +59,7 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
         SugarContext.init(this);
-        infographicFragment();
+        listViewFragment();
 
         dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
@@ -75,6 +70,7 @@ public class DashboardActivity extends AppCompatActivity {
         setTimer(initTime);
 //        setListView();
     }
+
 
     @OnClick(R.id.btnListOrInfo)
     public void transFragment(){
@@ -119,53 +115,6 @@ public class DashboardActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-//    public void setListView(){
-//        arrayOfItems = new ArrayList<Item>();
-//        itemsAdapter = new ItemAdapter(this, arrayOfItems);
-//        listView.setAdapter(itemsAdapter);
-//        EndlessScrollListener listener = new EndlessScrollListener();
-//        listener.setOnScrollEndListener(new EndlessScrollListener.OnScrollEnd() {
-//            @Override
-//            public void loadMore(int totalItemCount) {
-//                //토탈카운트 다음것부터 10개를 불러온다
-//
-//                String curLastStart = (records.get(records.size() - 1).start);
-////                SELECT * FROM XXX WHERE start < '2016 09 28'
-//                records = Records.find(Records.class, "start < '" + curLastStart + "'", null, null, "start desc", "10");
-//                if(records.equals(null)){
-//                }else{
-////                item = new String[records.size()];
-//                    for(int i = 0; i < records.size(); i++){
-//                        String date = records.get(i).start.substring(0, 10);
-//                        String time = records.get(i).start.substring(11, 16) + " ~ " + records.get(i).end.substring(11, 16);
-//                        int[] duration = getTimeInFormatForListView(records.get(i).duration);
-//                        Item newItem = new Item(date, time, duration);
-//                        itemsAdapter.add(newItem);
-//                    }
-//                }
-//            }
-//        });
-//        listView.setOnScrollListener(listener);
-//        try{
-//            //find(Class<T> type, String whereClause, String[] whereArgs, String groupBy, String orderBy, String limit) {
-//            records = Records.find(Records.class, null, null, null, "start desc", "10");
-//            if(records.equals(null)){
-//            }else{
-////                item = new String[records.size()];
-//                for(int i = 0; i < records.size(); i++){
-//                    String date = records.get(i).start.substring(0, 10);
-//                    String time = records.get(i).start.substring(11, 16) + " ~ " + records.get(i).end.substring(11, 16);
-//                    int[] duration = getTimeInFormatForListView(records.get(i).duration);
-//                    Item newItem = new Item(date, time, duration);
-//                    itemsAdapter.add(newItem);
-//                }
-//            }
-//
-//        }catch(Exception e){
-//            Log.d("records", "err");
-//            e.printStackTrace();
-//        }
-//    }
 
     @OnClick(R.id.btnStart)
     public void startTimer(){
@@ -181,28 +130,32 @@ public class DashboardActivity extends AppCompatActivity {
             startTimerService(stop);
             btnStart.setText(start);
             timer.setText(initTime);
-            setDuration(curTime);
-            curTime = 0;
+            setDuration(curTick);
+            curTick = 0;
             setTimer(initTime);
 
-//            record = new Records(getStartTime(), getEndTime(), getDuration());
-//            record.save();
-//
-//            String date = record.start.substring(0, 10);
-//            String time = record.start.substring(11, 16) + " ~ " + record.end.substring(11, 16);
-//            int[] duration = getTimeInFormatForListView(record.duration);
-//            Item newItem = new Item(date, time, duration);
-//            arrayOfItems.add(0, newItem);
-//            itemsAdapter.refresh(arrayOfItems);
-////            itemsAdapter.add(newItem);
-//            itemsAdapter.notifyDataSetChanged();
-//            listView.smoothScrollToPosition(0);
+            record = new Records(getStartTime(), getEndTime(), getDuration());
+            record.save();
+
+
+            String date = record.start.substring(0, 10);
+            String time = record.start.substring(11, 16) + " ~ " + record.end.substring(11, 16);
+            int[] duration = getTimeInFormatForListView(record.duration);
+            Item newItem = new Item(date, time, duration);
 //            //TODO 이걸 10번에 한번은 db에서 불러온다던지
             PurposeManager.setCurTime(purpose.getCurTime() + getDuration());
+            
+            ListViewFragment.addNewData(newItem, purpose.getCurTime());
             setTime();
         }
     }
-
+    int[] getTimeInFormatForListView(int curTime){
+        int [] res = new int[2];
+        int hour; int min;
+        res[0] = hour = curTime / 3600;
+        res[1] = min = curTime % 3600 / 60;
+        return res;
+    }
     public String getStartTime(){
         Log.d(TAG, "getStartTime" + startTime);
         return startTime;
@@ -224,16 +177,10 @@ public class DashboardActivity extends AppCompatActivity {
         this.duration = duration;
     }
 
-    int curTime = 0;
+    int curTick = 0;
 
     //**이걸 getTimeInFormat이랑 합치자
-    int[] getTimeInFormatForListView(int curTime){
-        int [] res = new int[2];
-        int hour; int min;
-        res[0] = hour = curTime / 3600;
-        res[1] = min = curTime % 3600 / 60;
-        return res;
-    }
+
 
     public String getTimeInFormat(int curTime){
         //seconds to hour:min:sec format
@@ -331,12 +278,12 @@ public class DashboardActivity extends AppCompatActivity {
     private BroadcastReceiver timerReciever = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-//            Log.d(TAG, "timerReceiver");
+            Log.d(TAG, "timerReceiver");
             switch(intent.getAction()){
                 case Constants.tick : {
                     Bundle bundle = intent.getExtras();
-                    curTime = bundle.getInt(Constants.curTime, 0);
-                    setTimer(getTimeInFormat(curTime));
+                    curTick = bundle.getInt(Constants.curTick, 0);
+                    setTimer(getTimeInFormat(curTick));
                     break;
                 }
             }

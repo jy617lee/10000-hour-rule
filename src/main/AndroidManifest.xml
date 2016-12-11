@@ -20,7 +20,7 @@
         <service
             android:name=".TimerService"
             android:exported="false"
-            android:process=":remote"/>
+            />
 
         <meta-data android:name="DATABASE" android:value="records.db" />
         <meta-data android:name="VERSION" android:value="2" />

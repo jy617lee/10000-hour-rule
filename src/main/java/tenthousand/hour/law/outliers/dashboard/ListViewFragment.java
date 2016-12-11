@@ -7,15 +7,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import tenthousand.hour.law.outliers.Item;
+import tenthousand.hour.law.outliers.ItemAdapter;
 import tenthousand.hour.law.outliers.R;
+import tenthousand.hour.law.outliers.utils.EndlessScrollListener;
 
 /**
  * Created by jeeyu_000 on 2016-12-10.
  */
 public class ListViewFragment extends Fragment {
-    private String TAG = "ListViewFragment";
+    private static String TAG = "ListViewFragment";
+    @BindView(R.id.dailyRecords)    ListView listView;
+
+    private static List<Records> records;
+    private static ArrayList<Item> arrayOfItems;
+    private static ItemAdapter itemsAdapter;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -27,6 +40,72 @@ public class ListViewFragment extends Fragment {
         Log.d(TAG, "onCreateView");
         View view = inflater.inflate(R.layout.fr_dashboard_listview, container, false);
         ButterKnife.bind(this, view);
+        setListView();
         return view;
+    }
+
+    public void setListView(){
+        arrayOfItems = new ArrayList<Item>();
+        itemsAdapter = new ItemAdapter(getContext(), arrayOfItems);
+        listView.setAdapter(itemsAdapter);
+        EndlessScrollListener listener = new EndlessScrollListener();
+        listener.setOnScrollEndListener(new EndlessScrollListener.OnScrollEnd() {
+            @Override
+            public void loadMore(int totalItemCount) {
+                //토탈카운트 다음것부터 10개를 불러온다
+
+                String curLastStart = (records.get(records.size() - 1).start);
+//                SELECT * FROM XXX WHERE start < '2016 09 28'
+                records = Records.find(Records.class, "start < '" + curLastStart + "'", null, null, "start desc", "10");
+                if(records.equals(null)){
+                }else{
+//                item = new String[records.size()];
+                    for(int i = 0; i < records.size(); i++){
+                        String date = records.get(i).start.substring(0, 10);
+                        String time = records.get(i).start.substring(11, 16) + " ~ " + records.get(i).end.substring(11, 16);
+                        int[] duration = getTimeInFormatForListView(records.get(i).duration);
+                        Item newItem = new Item(date, time, duration);
+                        itemsAdapter.add(newItem);
+                    }
+                }
+            }
+        });
+        listView.setOnScrollListener(listener);
+        try{
+            //find(Class<T> type, String whereClause, String[] whereArgs, String groupBy, String orderBy, String limit) {
+            records = Records.find(Records.class, null, null, null, "start desc", "10");
+            if(records.equals(null)){
+            }else{
+//                item = new String[records.size()];
+                for(int i = 0; i < records.size(); i++){
+                    String date = records.get(i).start.substring(0, 10);
+                    String time = records.get(i).start.substring(11, 16) + " ~ " + records.get(i).end.substring(11, 16);
+                    int[] duration = getTimeInFormatForListView(records.get(i).duration);
+                    Item newItem = new Item(date, time, duration);
+                    itemsAdapter.add(newItem);
+                }
+            }
+
+        }catch(Exception e){
+            Log.d("records", "err");
+            e.printStackTrace();
+        }
+    }
+
+    int[] getTimeInFormatForListView(int curTime){
+        int [] res = new int[2];
+        int hour; int min;
+        res[0] = hour = curTime / 3600;
+        res[1] = min = curTime % 3600 / 60;
+        return res;
+    }
+
+    //// TODO: 2016-12-11 이 부분의 구조가 좀 이상한거 같은데... 
+    public static void addNewData(Item newItem, int purposeCurTime) {
+       Log.d(TAG, "addNewData");
+        arrayOfItems.add(0, newItem);
+        itemsAdapter.refresh(arrayOfItems);
+        itemsAdapter.notifyDataSetChanged();
+//        listView.smoothScrollToPosition(0);
     }
 }
