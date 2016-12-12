@@ -34,8 +34,6 @@ public class DashboardActivity extends AppCompatActivity {
     private String TAG = "DashboardActivity";
 
     @BindView(R.id.goal)    StyledTextView goal;
-    @BindView(R.id.date)    StyledTextView date;
-    @BindView(R.id.time)    StyledTextView time;
     @BindView(R.id.timer)   StyledTextView timer;
     @BindView(R.id.btnStart)Button btnStart;
     @BindView(R.id.btnListOrInfo)   Button btnListOrInfo;
@@ -65,8 +63,8 @@ public class DashboardActivity extends AppCompatActivity {
 
         purpose = PurposeManager.getPurpose(getApplicationContext());
         setGoal();
-        setDate();
-        setTime();
+//        setDate();
+//        setTime();
         setTimer(initTime);
 //        setListView();
     }
@@ -86,8 +84,14 @@ public class DashboardActivity extends AppCompatActivity {
     }
     FragmentTransaction ft;
     public void infographicFragment(){
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.goalTime, purpose.getGoalTime());
+        bundle.putString(Constants.end, purpose.getEnd());
+        bundle.putInt(Constants.curTime, purpose.getCurTime());
+        InfographicFragment infoFragment = new InfographicFragment();
+        infoFragment.setArguments(bundle);
         ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frDashboard, new InfographicFragment());
+        ft.replace(R.id.frDashboard, infoFragment);
         ft.commit();
     }
 
@@ -144,9 +148,9 @@ public class DashboardActivity extends AppCompatActivity {
             Item newItem = new Item(date, time, duration);
 //            //TODO 이걸 10번에 한번은 db에서 불러온다던지
             PurposeManager.setCurTime(purpose.getCurTime() + getDuration());
-            
+
             ListViewFragment.addNewData(newItem, purpose.getCurTime());
-            setTime();
+//            setTime();
         }
     }
     int[] getTimeInFormatForListView(int curTime){
@@ -235,15 +239,15 @@ public class DashboardActivity extends AppCompatActivity {
         goal.setText(mGoal);
     }
 
-    void setDate(){
-        String mDate = purpose.getStart() + " ~ " + purpose.getEnd();
-        date.setText(mDate);
-    }
+//    void setDate(){
+//        String mDate = purpose.getStart() + " ~ " + purpose.getEnd();
+//        date.setText(mDate);
+//    }
 
-    void setTime(){
-        String mTime = secToHour(purpose.getCurTime()) + " " + hoursOf + " " + purpose.getGoalTime() + " ";
-        time.setText(mTime);
-    }
+//    void setTime(){
+//        String mTime = secToHour(purpose.getCurTime()) + " " + hoursOf + " " + purpose.getGoalTime() + " ";
+//        time.setText(mTime);
+//    }
 
     void setTimer(String time){
         timer.setText(time);
