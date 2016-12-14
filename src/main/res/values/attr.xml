@@ -3,4 +3,16 @@
     <declare-styleable name="StyledTextView">
     <attr name="font" format="string"/>
 </declare-styleable>
+    <declare-styleable name="ProgressBar">
+        <attr name="max" format="integer" />
+        <attr name="cur_amount" format="integer" />
+        <attr name="bar_color" format="reference|color" />
+        <attr name="bar_width" format="dimension" />
+        <!--<attr name="text_color" format="reference|integer" />-->
+        <!--<attr name="cur_text" format="reference|string" />-->
+        <!--<attr name="cur_text_size" format="reference|string" />-->
+        <!--<attr name="cur_unit" format="reference|string" />-->
+        <!--<attr name="cur_unit_size" format="reference|string" />-->
+    </declare-styleable>
     </resources>
+

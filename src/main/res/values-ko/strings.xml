@@ -15,10 +15,10 @@
     <string name="initTime">"00:00:00"</string>
     <string name="hoursOf">시간 / </string>
     <string-array name="time_array">
-        <item>100 시간</item>
-        <item>300 시간</item>
-        <item>1000 시간</item>
-        <item>5000 시간</item>
-        <item>10000 시간</item>
+        <item>100</item>
+        <item>300</item>
+        <item>1000</item>
+        <item>5000</item>
+        <item>10000</item>
     </string-array>
 </resources>

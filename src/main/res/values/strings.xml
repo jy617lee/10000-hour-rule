@@ -17,10 +17,10 @@
     <string name="res_code">resultCode</string>
     <string name="start_or_stop">startOrStop</string>
     <string-array name="time_array">
-        <item>100 hours</item>
-        <item>300 hours</item>
-        <item>1000 hours</item>
-        <item>5000 hours</item>
-        <item>10000 hours</item>
+        <item>100</item>
+        <item>300</item>
+        <item>1000</item>
+        <item>5000</item>
+        <item>10000</item>
     </string-array>
 </resources>
