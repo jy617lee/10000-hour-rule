@@ -55,10 +55,11 @@
 
 
     <tenthousand.hour.law.outliers.utils.ProgressBar
+        android:layout_gravity="center"
         android:id="@+id/progressBar"
         android:layout_width="50dp"
-        android:layout_height="match_parent"
-        android:background="@android:color/holo_orange_dark"
+        android:layout_height="300dp"
+        android:background="@color/colorAccent"
         app:bar_color="@color/colorPrimary"
         app:bar_width="30dp"
        />

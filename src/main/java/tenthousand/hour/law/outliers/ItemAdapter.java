@@ -43,7 +43,7 @@ public class ItemAdapter extends ArrayAdapter<Item>{
 
         date.setText(item.date);
         time.setText(item.time);
-        setIcon(icon, item.time);
+//        setIcon(icon, item.time);
 
         setHour(hourNum, hourText, item.duration);
         minNum.setText(item.duration[1]+"");

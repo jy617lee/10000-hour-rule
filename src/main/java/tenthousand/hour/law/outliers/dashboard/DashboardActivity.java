@@ -21,6 +21,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import tenthousand.hour.law.outliers.GoalSettingActivity;
 import tenthousand.hour.law.outliers.Item;
 import tenthousand.hour.law.outliers.R;
 import tenthousand.hour.law.outliers.TimerService;
@@ -59,16 +60,23 @@ public class DashboardActivity extends AppCompatActivity {
         SugarContext.init(this);
         listViewFragment();
 
-        dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        dateFormat = new SimpleDateFormat("yy/MM/dd");
 
         purpose = PurposeManager.getPurpose(getApplicationContext());
         setGoal();
-//        setDate();
-//        setTime();
         setTimer(initTime);
-//        setListView();
     }
 
+    @OnClick(R.id.btnReset)
+    public void reset(){
+        Log.d(TAG, "RESET");
+        Records.deleteAll(Records.class);
+        startTimerService(stop);
+        PurposeManager.setPurpose(null);
+        Intent intent = new Intent(this, GoalSettingActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     @OnClick(R.id.btnListOrInfo)
     public void transFragment(){
@@ -82,6 +90,7 @@ public class DashboardActivity extends AppCompatActivity {
             infographicFragment();
         }
     }
+
     FragmentTransaction ft;
     public void infographicFragment(){
         Bundle bundle = new Bundle();
@@ -138,26 +147,42 @@ public class DashboardActivity extends AppCompatActivity {
             curTick = 0;
             setTimer(initTime);
 
-            record = new Records(getStartTime(), getEndTime(), getDuration());
-            record.save();
+            String curDate = getStartTime();
+            String recentDate = ListViewFragment.getRecentData();
+            int curDuration = getDuration();
+            int[] duration;
+            if(curDate.equals(recentDate)){
+                //조건에 맞는 record 찾아오기
+                record = Records.find(Records.class, "day = ?", curDate+"").get(0);
+                //db에 업데이트 하기
+                record.duration += curDuration;
+                record.save();
+                //Item 만들어서 listview로 넘기기
+                duration = getTimeInFormatForListView(record.duration);
+                Item modifiedItem = new Item(curDate, duration);
+                ListViewFragment.modifyNewData(modifiedItem);
+            }else{
+                record = new Records(curDate, curDuration);
+                record.save();
+
+                String date = curDate;
+                duration = getTimeInFormatForListView(record.duration);
+                Item newItem = new Item(date, duration);
 
 
-            String date = record.start.substring(0, 10);
-            String time = record.start.substring(11, 16) + " ~ " + record.end.substring(11, 16);
-            int[] duration = getTimeInFormatForListView(record.duration);
-            Item newItem = new Item(date, time, duration);
-//            //TODO 이걸 10번에 한번은 db에서 불러온다던지
+                ListViewFragment.addNewData(newItem, purpose.getCurTime());
+            }
             PurposeManager.setCurTime(purpose.getCurTime() + getDuration());
-
-            ListViewFragment.addNewData(newItem, purpose.getCurTime());
-//            setTime();
+            InfographicFragment.setProgressBar(PurposeManager.getCurTime());
         }
     }
+
     int[] getTimeInFormatForListView(int curTime){
-        int [] res = new int[2];
-        int hour; int min;
+        int [] res = new int[3];
+        int hour; int min; int sec;
         res[0] = hour = curTime / 3600;
         res[1] = min = curTime % 3600 / 60;
+        res[2] = sec = curTime % 3600 % 60;
         return res;
     }
     public String getStartTime(){

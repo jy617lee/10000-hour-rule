@@ -10,15 +10,13 @@ import com.orm.dsl.Unique;
 public class Records extends SugarRecord {
     private Long id;
     @Unique
-    String start;
-    String end;
+    String day;
     int duration;
 
     public Records(){ }
 
-    public Records(String start, String end, int duration){
-        this.start = start;
-        this.end = end;
+    public Records(String day, int duration){
+        this.day = day;
         this.duration = duration;
     }
 

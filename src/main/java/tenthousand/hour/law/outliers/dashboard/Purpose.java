@@ -4,6 +4,7 @@ package tenthousand.hour.law.outliers.dashboard;
  * Created by jeeyu_000 on 2016-09-17.
  */
 public class Purpose {
+    //// TODO: 2016-12-14 goalTime integer로 바꾸기
     private String purposeName;
     private String goalTime;
     private String start;

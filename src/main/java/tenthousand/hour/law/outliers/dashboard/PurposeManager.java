@@ -35,6 +35,13 @@ public class PurposeManager {
         editor.apply();
     }
 
+    public static void setPurpose(Object o){
+        purpose = null;
+        editor.clear();
+        editor.apply();
+        mPurpose = null;
+    }
+
     private static Purpose create(Context context){
         if(mPurpose == null) mPurpose = context.getSharedPreferences(Constants.purposeSP, 0);
         editor = mPurpose.edit();
@@ -102,7 +109,7 @@ public class PurposeManager {
         editor.apply();
     }
 
-    public int getCurTime() {
+    public static int getCurTime() {
         return purpose.getCurTime();
     }
 

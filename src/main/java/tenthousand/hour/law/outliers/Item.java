@@ -10,6 +10,11 @@ public class Item {
     public String hourNum;
     public String minNum;
 
+    public Item(String date, int [] duration){
+        this.date = date;
+        this.duration = duration;
+    }
+
     public Item(String date, String time, int [] duration){
         this.date = date;
         this.time = time;
