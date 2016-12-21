@@ -5,69 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:padding="3dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="10dp"
-        android:layout_gravity="center">
-        <tenthousand.hour.law.outliers.utils.StyledTextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:font="@string/font"
-            android:textSize="20sp"/>
-        <tenthousand.hour.law.outliers.utils.StyledTextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:font="@string/font"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="60dp"
         >
 
         <tenthousand.hour.law.outliers.utils.StyledTextView
-            android:id="@+id/hourNum"
-            android:layout_width="35dp"
+            android:id="@+id/itemDate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="viewEnd"
-            android:textSize="30sp"/>
+            android:textSize="19sp"/>
         <tenthousand.hour.law.outliers.utils.StyledTextView
-            android:id="@+id/hourText"
+            android:layout_marginStart="30dp"
+            android:id="@+id/itemTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:text="h"/>
-        <tenthousand.hour.law.outliers.utils.StyledTextView
-            android:id="@+id/minNum"
-            android:layout_width="35dp"
-            android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:layout_marginStart="7dp"
-            android:textAlignment="viewEnd"/>
-        <tenthousand.hour.law.outliers.utils.StyledTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:text="m"
+            android:textSize="19sp"
             />
+        <tenthousand.hour.law.outliers.utils.StyledTextView
+            android:layout_marginStart="30dp"
+            android:id="@+id/itemPercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="19sp"/>
     </LinearLayout>
 
 </LinearLayout>

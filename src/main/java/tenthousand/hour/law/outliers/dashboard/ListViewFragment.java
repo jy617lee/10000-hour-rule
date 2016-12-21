@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.owater.library.CircleTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +20,7 @@ import butterknife.ButterKnife;
 import tenthousand.hour.law.outliers.Item;
 import tenthousand.hour.law.outliers.ItemAdapter;
 import tenthousand.hour.law.outliers.R;
+import tenthousand.hour.law.outliers.utils.Constants;
 import tenthousand.hour.law.outliers.utils.EndlessScrollListener;
 
 /**
@@ -25,13 +29,30 @@ import tenthousand.hour.law.outliers.utils.EndlessScrollListener;
 public class ListViewFragment extends Fragment {
     private static String TAG = "ListViewFragment";
     @BindView(R.id.dailyRecords)    ListView listView;
+    @BindView(R.id.percentSummary)      CircleTextView percentSummary;
+    @BindView(R.id.listViewGoalTime)    TextView listViewGoalTime;
+    @BindView(R.id.listViewEnd)         TextView listViewEnd;
+    static TextView todayTimeSumTextView;
 
     private static List<Records> records;
     private static ArrayList<Item> arrayOfItems;
     private static ItemAdapter itemsAdapter;
+    private static String todayTimeSumText;
+    private String goalTime;
+    private String end;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         setListView();
+        todayTimeSumTextView = (TextView) view.findViewById(R.id.todayTimeSumText);
+        if(!itemsAdapter.isEmpty()){
+            todayTimeSumTextView.setText(intArrToString(itemsAdapter.getItem(0).duration));
+            String[] arr= itemsAdapter.getItem(0).accumulation.split("/");
+            percentSummary.setText(arr[0] + "%");
+        }
+
+        listViewGoalTime.setText(goalTime);
+        listViewEnd.setText(end);
+
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -40,8 +61,12 @@ public class ListViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView");
         View view = inflater.inflate(R.layout.fr_dashboard_listview, container, false);
+        //오늘거가 있다면 가지고와서 최근 duration을 set해준다
+        //퍼센트도 마찬가지
         ButterKnife.bind(this, view);
-
+        Bundle bundle = getArguments();
+        goalTime = bundle.getString(Constants.goalTime);
+        end = bundle.getString(Constants.end);
         return view;
     }
 
@@ -63,7 +88,7 @@ public class ListViewFragment extends Fragment {
                     for(int i = 0; i < records.size(); i++){
                         String date = records.get(i).day;
                         int[] duration = getTimeInFormatForListView(records.get(i).duration);
-                        Item newItem = new Item(date, duration);
+                        Item newItem = new Item(date, duration, setAccumulateTime(records.get(i).accumulation, goalTime));
                         itemsAdapter.add(newItem);
                     }
                 }
@@ -79,7 +104,7 @@ public class ListViewFragment extends Fragment {
                 for(int i = 0; i < records.size(); i++){
                     String date = records.get(i).day;
                     int[] duration = getTimeInFormatForListView(records.get(i).duration);
-                    Item newItem = new Item(date, duration);
+                    Item newItem = new Item(date, duration, setAccumulateTime(records.get(i).accumulation, goalTime));
                     itemsAdapter.add(newItem);
                 }
             }
@@ -90,21 +115,27 @@ public class ListViewFragment extends Fragment {
         }
     }
 
-    int[] getTimeInFormatForListView(int curTime){
-        int [] res = new int[2];
-        int hour; int min;
-        res[0] = hour = curTime / 3600;
-        res[1] = min = curTime % 3600 / 60;
-        return res;
+    public String setAccumulateTime(int accumulation, String goalTime){
+        String res = accumulation / 3600 + "";
+        return res+"/"+goalTime;
     }
 
+    int[] getTimeInFormatForListView(int curTime){
+        int [] res = new int[3];
+        int hour; int min; int sec;
+        res[0] = hour = curTime / 3600;
+        res[1] = min = curTime % 3600 / 60;
+        res[2] = sec = curTime % 3600 % 60;
+        return res;
+    }
     //// TODO: 2016-12-11 이 부분의 구조가 좀 이상한거 같은데...
     public static void addNewData(Item newItem, int purposeCurTime) {
        Log.d(TAG, "addNewData");
         arrayOfItems.add(0, newItem);
         itemsAdapter.refresh(arrayOfItems);
         itemsAdapter.notifyDataSetChanged();
-//        listView.smoothScrollToPosition(0);
+        todayTimeSumText = intArrToString(newItem.duration);
+        todayTimeSumTextView.setText(todayTimeSumText);
     }
 
     public static String getRecentData(){
@@ -123,5 +154,24 @@ public class ListViewFragment extends Fragment {
         arrayOfItems.add(0, item);
         itemsAdapter.refresh(arrayOfItems);
         itemsAdapter.notifyDataSetChanged();
+        todayTimeSumText = intArrToString(item.duration);
+        todayTimeSumTextView.setText(todayTimeSumText);
+    }
+
+    //// TODO: 2016-12-19 이 함수 여기저기...
+    public static String intArrToString(int[] intArr){
+        String[] StringArr = new String[3];
+        String res = new String();
+
+        for(int i = 0; i < 3; i++){
+            if(intArr[i] < 10){
+                StringArr[i] = "0" + intArr[i];
+            }else{
+                StringArr[i] = intArr[i]+"";
+            }
+        }
+
+        res = StringArr[0] + ":" + StringArr[1] + ":" + StringArr[2];
+        return res;
     }
 }

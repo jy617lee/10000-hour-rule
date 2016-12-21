@@ -12,12 +12,14 @@ public class Records extends SugarRecord {
     @Unique
     String day;
     int duration;
+    int accumulation = 0;
 
     public Records(){ }
 
-    public Records(String day, int duration){
+    public Records(String day, int duration, int accumulation){
         this.day = day;
         this.duration = duration;
+        this.accumulation = accumulation;
     }
 
     public Long getId() {

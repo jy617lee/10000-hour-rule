@@ -7,17 +7,11 @@ public class Item {
     public String date;
     public String time;
     public int[] duration;
-    public String hourNum;
-    public String minNum;
+    public String accumulation;
 
-    public Item(String date, int [] duration){
+    public Item(String date, int [] duration, String accumulation){
         this.date = date;
         this.duration = duration;
-    }
-
-    public Item(String date, String time, int [] duration){
-        this.date = date;
-        this.time = time;
-        this.duration = duration;
+        this.accumulation = accumulation;
     }
 }

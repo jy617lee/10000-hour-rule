@@ -58,13 +58,14 @@ public class DashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
         SugarContext.init(this);
-        listViewFragment();
 
-        dateFormat = new SimpleDateFormat("yy/MM/dd");
+
+        dateFormat = new SimpleDateFormat("MM/dd");
 
         purpose = PurposeManager.getPurpose(getApplicationContext());
         setGoal();
         setTimer(initTime);
+        listViewFragment();
     }
 
     @OnClick(R.id.btnReset)
@@ -105,8 +106,13 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void listViewFragment(){
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.goalTime, purpose.getGoalTime());
+        bundle.putString(Constants.end, purpose.getEnd());
+        ListViewFragment listViewFragment = new ListViewFragment();
+        listViewFragment.setArguments(bundle);
         ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frDashboard, new ListViewFragment());
+        ft.replace(R.id.frDashboard, listViewFragment);
         ft.commit();
     }
     @Override
@@ -151,30 +157,38 @@ public class DashboardActivity extends AppCompatActivity {
             String recentDate = ListViewFragment.getRecentData();
             int curDuration = getDuration();
             int[] duration;
+            PurposeManager.setCurTime(purpose.getCurTime() + getDuration());
+            int curAccumulation = purpose.getCurTime();
             if(curDate.equals(recentDate)){
                 //조건에 맞는 record 찾아오기
                 record = Records.find(Records.class, "day = ?", curDate+"").get(0);
                 //db에 업데이트 하기
                 record.duration += curDuration;
+                record.accumulation = curAccumulation;
                 record.save();
                 //Item 만들어서 listview로 넘기기
-                duration = getTimeInFormatForListView(record.duration);
-                Item modifiedItem = new Item(curDate, duration);
+                duration = getTimeInFormatForListView(curAccumulation);
+                Item modifiedItem = new Item(curDate, duration, setAccumulateTime(curAccumulation, purpose.getGoalTime()));
                 ListViewFragment.modifyNewData(modifiedItem);
             }else{
-                record = new Records(curDate, curDuration);
+                record = new Records(curDate, curDuration, purpose.getCurTime());
                 record.save();
 
                 String date = curDate;
                 duration = getTimeInFormatForListView(record.duration);
-                Item newItem = new Item(date, duration);
+                Item newItem = new Item(date, duration, setAccumulateTime(curAccumulation, purpose.getGoalTime()));
 
 
                 ListViewFragment.addNewData(newItem, purpose.getCurTime());
             }
-            PurposeManager.setCurTime(purpose.getCurTime() + getDuration());
+
             InfographicFragment.setProgressBar(PurposeManager.getCurTime());
         }
+    }
+
+    public String setAccumulateTime(int accumulation, String goalTime){
+        String res = accumulation / 3600 + "";
+        return res+"/"+goalTime;
     }
 
     int[] getTimeInFormatForListView(int curTime){
