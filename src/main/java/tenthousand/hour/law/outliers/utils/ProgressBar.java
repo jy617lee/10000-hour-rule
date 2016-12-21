@@ -1,3 +1,5 @@
+package tenthousand.hour.law.outliers.utils;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
