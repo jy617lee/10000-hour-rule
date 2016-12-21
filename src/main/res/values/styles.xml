@@ -1,12 +1,18 @@
 <resources>
+    <declare-styleable name="ProgressBar">
+        <attr name="max" format="integer" />
+        <attr name="cur_amount" format="integer" />
+        <attr name="bar_color" format="reference|color" />
+        <attr name="bar_width" format="dimension" />
+        <attr name="text_color" format="reference|color" />
+        <attr name="amount_text" format="reference|string" />
+        <attr name="amount_text_size" format="reference|dimension" />
+        <attr name="unit_text" format="reference|string" />
+        <attr name="unit_text_size" format="reference|dimension" />
+        <attr name="text_font" format="reference|string" />
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="android:windowActionBar">false</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
+        <attr name="pin_img" format="reference"/>
+        <attr name="pin_width" format="reference|dimension"/>
+        <attr name="pin_height" format="reference|dimension"/>
+    </declare-styleable>
 </resources>
