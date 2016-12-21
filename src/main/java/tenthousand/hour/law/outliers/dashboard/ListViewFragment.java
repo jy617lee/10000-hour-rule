@@ -29,7 +29,7 @@ import tenthousand.hour.law.outliers.utils.EndlessScrollListener;
 public class ListViewFragment extends Fragment {
     private static String TAG = "ListViewFragment";
     @BindView(R.id.dailyRecords)    ListView listView;
-    @BindView(R.id.percentSummary)      CircleTextView percentSummary;
+    static CircleTextView percentSummary;
     @BindView(R.id.listViewGoalTime)    TextView listViewGoalTime;
     @BindView(R.id.listViewEnd)         TextView listViewEnd;
     static TextView todayTimeSumTextView;
@@ -38,16 +38,18 @@ public class ListViewFragment extends Fragment {
     private static ArrayList<Item> arrayOfItems;
     private static ItemAdapter itemsAdapter;
     private static String todayTimeSumText;
-    private String goalTime;
+    private static String goalTime;
     private String end;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         setListView();
         todayTimeSumTextView = (TextView) view.findViewById(R.id.todayTimeSumText);
+        percentSummary = (CircleTextView) view.findViewById(R.id.percentSummary);
         if(!itemsAdapter.isEmpty()){
             todayTimeSumTextView.setText(intArrToString(itemsAdapter.getItem(0).duration));
             String[] arr= itemsAdapter.getItem(0).accumulation.split("/");
-            percentSummary.setText(arr[0] + "%");
+            String percent = (Integer.parseInt(arr[0])* 100) / Integer.parseInt(goalTime)  + "";
+            percentSummary.setText(percent + "%");
         }
 
         listViewGoalTime.setText(goalTime);
@@ -136,6 +138,9 @@ public class ListViewFragment extends Fragment {
         itemsAdapter.notifyDataSetChanged();
         todayTimeSumText = intArrToString(newItem.duration);
         todayTimeSumTextView.setText(todayTimeSumText);
+        String[] arr= newItem.accumulation.split("/");
+        String percent = (Integer.parseInt(arr[0])* 100) / Integer.parseInt(goalTime)  + "";
+        percentSummary.setText(percent + "%");        percentSummary.setText(percent + "");
     }
 
     public static String getRecentData(){
@@ -156,6 +161,9 @@ public class ListViewFragment extends Fragment {
         itemsAdapter.notifyDataSetChanged();
         todayTimeSumText = intArrToString(item.duration);
         todayTimeSumTextView.setText(todayTimeSumText);
+        String[] arr= item.accumulation.split("/");
+        String percent = (Integer.parseInt(arr[0])* 100) / Integer.parseInt(goalTime)  + "";
+        percentSummary.setText(percent + "%");
     }
 
     //// TODO: 2016-12-19 이 함수 여기저기...
