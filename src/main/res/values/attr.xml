@@ -13,6 +13,7 @@
         <!--<attr name="cur_text_size" format="reference|string" />-->
         <!--<attr name="cur_unit" format="reference|string" />-->
         <!--<attr name="cur_unit_size" format="reference|string" />-->
+        <attr name="pin_img" format="reference|integer"/>
     </declare-styleable>
     </resources>
 

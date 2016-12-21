@@ -109,7 +109,7 @@ public class GoalSettingActivity extends AppCompatActivity {
 
     public void setDefaultDate(){
         Log.d(TAG, "setDate");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
         String date = sdf.format(new Date());
         start.setText(date);
         end.setText(date);
@@ -144,11 +144,11 @@ public class GoalSettingActivity extends AppCompatActivity {
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
             StringBuffer date = new StringBuffer(11);
-            date.append(year);
-            date.append("-");
+            date.append(year-2000);
+            date.append("/");
             String m = (month + 1) > 9 ? ("" + (month + 1)) : ("0" + (month + 1));
             date.append(m);
-            date.append("-");
+            date.append("/");
             String d = day > 9 ? day+"" : "0"+day;
             date.append(d);
             switch(flag){
@@ -173,7 +173,7 @@ public class GoalSettingActivity extends AppCompatActivity {
     }
 
     public static boolean checkEndDate(int year, int month, int day){
-        String startDate[] = start.getText().toString().split("-");
+        String startDate[] = start.getText().toString().split("/");
         if(Integer.parseInt(startDate[0]) > year){
             return false;
         } else if(Integer.parseInt(startDate[1]) > month) {
@@ -185,7 +185,7 @@ public class GoalSettingActivity extends AppCompatActivity {
     }
 
     public static boolean checkStartDate(int year, int month, int day){
-        String endDate[] = end.getText().toString().split("-");
+        String endDate[] = end.getText().toString().split("/");
         if(Integer.parseInt(endDate[0]) < year){
             return false;
         } else if(Integer.parseInt(endDate[1]) < month) {

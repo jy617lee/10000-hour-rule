@@ -18,4 +18,7 @@ public interface Constants {
     String flagForStartEnd = "flag";
     String startOrStop ="startOrStop";
     String tick = "tick";
+    String curTick = "curTick";
+
+
 }

@@ -27,11 +27,13 @@ public class InfographicFragment extends Fragment {
     @BindView(R.id.goalTime)    TextView goalTimeView;
     @BindView(R.id.todayDate)    TextView todayDateView;
     @BindView(R.id.curTime)    TextView curTimeView;
-    @BindView(R.id.progressBar)    ProgressBar progressBar;
-    private int goalTime, curTime;
+    static ProgressBar progressBar;
+    private static int goalTime, curTime;
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        setProgressBar(goalTime, curTime);
     }
 
     @Nullable
@@ -42,7 +44,6 @@ public class InfographicFragment extends Fragment {
         ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
         setStrings(bundle);
-        setProgressBar(goalTime, curTime);
         return view;
     }
 
@@ -58,7 +59,19 @@ public class InfographicFragment extends Fragment {
     }
 
     private void setProgressBar(int goalTime, int curTime){
-        progressBar.setMax(goalTime);
-        progressBar.setCurAmount(curTime);
+        setGoalTime(goalTime);
+        setCurTime(curTime);
+    }
+
+    public static void setProgressBar(int curTime){
+        setCurTime(curTime);
+    }
+
+    private static void setCurTime(int time){
+        curTime = time;
+    }
+
+    private static void setGoalTime(int time){
+        goalTime = time;
     }
 }

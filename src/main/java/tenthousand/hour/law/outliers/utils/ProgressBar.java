@@ -37,6 +37,7 @@ public class ProgressBar extends View {
 
     public void setCurAmount(float curAmount) {
         this.curAmount = curAmount;
+        this.invalidate();
     }
 
     private float barStart, barEnd, barHeight, barWidth;
@@ -47,7 +48,7 @@ public class ProgressBar extends View {
 //    private float unitTextStart, unitTextEnd, unitTextSize;
     private int barColor, textColor;
 
-    private Paint barPaint, amountPaint, unitPaint;
+    private Paint barPaint, amountPaint, unitPaint, pinPaint;
     private RectF barRectF;
 
     private final int defaultMax;
@@ -98,10 +99,9 @@ public class ProgressBar extends View {
     public void calculateHeight(){
         barHeight = curAmount / max;
         barRectF.left = getPaddingLeft();
-        barRectF.right = barRectF.left + dp2px(barWidth);
+        barRectF.right = barRectF.left + barWidth;
         barRectF.bottom = getBottom();
         barRectF.top = barRectF.bottom - getHeight() * barHeight;
-
     }
 
     private void initPaint(){
@@ -111,5 +111,11 @@ public class ProgressBar extends View {
     public float dp2px(float dp) {
         final float scale = getResources().getDisplayMetrics().density;
         return  dp * scale + 0.5f;
+    }
+
+    private final int px2dp(int px)
+    {
+        final float scale = getResources().getSystem().getDisplayMetrics().density;
+        return (int) (px * scale);
     }
 }
