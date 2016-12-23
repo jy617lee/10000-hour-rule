@@ -23,4 +23,9 @@
         <item>5000</item>
         <item>10000</item>
     </string-array>
+
+    <string name="point_font">KaushanScript-Regular.otf</string>
+    <string name="roboto_light">RobotoCondensed-Light.ttf</string>
+    <string name="point_regular">RobotoCondensed-Regular.ttf</string>
+    <string name="point_bold">RobotoCondensed-Bold.ttf</string>
 </resources>
