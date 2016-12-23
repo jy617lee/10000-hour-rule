@@ -1,41 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/purposeSummary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="78dp"
         android:orientation="vertical"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="0dp"
+        android:background="@color/background"
+        android:layout_alignParentTop="true"
         >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
+            android:orientation="horizontal"
+            >
+            <ImageButton
                 android:id="@+id/btnListOrInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="인포"/>
+                android:layout_width="24.7dp"
+                android:layout_height="24.7dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="45.7dp"
+                android:background="@drawable/ic_graph"/>
             <tenthousand.hour.law.outliers.utils.StyledTextView
                 android:id="@+id/goal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:font="@string/font"
-                android:textSize="40sp"
-                android:layout_gravity="center"
-                android:textColor="#252525"/>
-            <Button
+                android:layout_width="165dp"
+                android:layout_height="37.7dp"
+                android:layout_marginTop="40.3dp"
+                android:layout_marginLeft="43.7dp"
+                app:font="@string/point_font"
+                android:textSize="31.2sp"
+                android:textAlignment="center"
+                android:textColor="@color/dark_black"/>
+            <ImageButton
                 android:id="@+id/btnReset"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="지우기"/>
+                android:layout_width="24dp"
+                android:layout_height="26.3dp"
+                android:layout_marginTop="44.7dp"
+                android:layout_marginLeft="43dp"
+                android:background="@drawable/ic_trash" />
         </LinearLayout>
     </LinearLayout>
 
@@ -43,34 +49,37 @@
     <FrameLayout
         android:id="@+id/frDashboard"
         android:layout_width="match_parent"
-        android:layout_height="330dp" />
+        android:layout_height="330dp"
+        android:layout_below="@+id/purposeSummary"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="83dp"
         android:orientation="horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:background="#ffe5cb"
-        android:layout_gravity="center"
-        android:padding="13dp">
+        android:background="@color/blue"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="28dp">
+        <ImageButton
+            android:id="@+id/btnPlay"
+            android:layout_marginStart="40dp"
+            android:layout_width="21.7dp"
+            android:layout_height="31.3dp"
+            android:background="@drawable/btn_play" />
         <tenthousand.hour.law.outliers.utils.StyledTextView
             android:id="@+id/timer"
-            android:layout_width="wrap_content"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            app:font="@string/font"
-            android:textSize="45sp"
-            android:layout_gravity="center"
-            android:textColor="#333333"/>
-        <Button
-            android:id="@+id/btnStart"
-            android:layout_width="115dp"
-            android:layout_height="wrap_content"
-            android:textSize="33sp"
-            android:textColor="#333333"
-            android:padding="7dp"
-            android:layout_marginLeft="20dp"
-            android:text="@string/btnStart"
-            android:background="#ffc192"/>
+            app:font="@string/roboto_light"
+            android:textSize="33.2sp"
+            android:textAlignment="center"
+            android:layout_marginStart="30dp"
+            android:textColor="@color/white"
+            android:includeFontPadding="false"/>
+        <ImageButton
+            android:id="@+id/btnPause"
+            android:layout_width="22.3dp"
+            android:layout_height="29.3dp"
+            android:layout_marginStart="30dp"
+            android:background="@drawable/btn_pause" />
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

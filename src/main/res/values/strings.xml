@@ -12,7 +12,7 @@
     <string name="btnStart">Start</string>
     <string name="btnStop">Stop</string>
     <string name="unit">hours</string>
-    <string name="initTime">"00:00:00"</string>
+    <string name="initTime">"00 : 00 : 00"</string>
     <string name="hoursOf">hours of</string>
     <string name="res_code">resultCode</string>
     <string name="start_or_stop">startOrStop</string>
@@ -26,6 +26,6 @@
 
     <string name="point_font">KaushanScript-Regular.otf</string>
     <string name="roboto_light">RobotoCondensed-Light.ttf</string>
-    <string name="point_regular">RobotoCondensed-Regular.ttf</string>
-    <string name="point_bold">RobotoCondensed-Bold.ttf</string>
+    <string name="roboto_regular">RobotoCondensed-Regular.ttf</string>
+    <string name="toboto_bold">RobotoCondensed-Bold.ttf</string>
 </resources>

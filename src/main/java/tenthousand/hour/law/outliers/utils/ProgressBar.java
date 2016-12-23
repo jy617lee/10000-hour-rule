@@ -214,4 +214,9 @@ public class ProgressBar extends View {
         this.recentDate = recentDate;
         this.invalidate();
     }
+
+    public void setMax(int max){
+        this.max = max;
+        this.invalidate();
+    }
 }

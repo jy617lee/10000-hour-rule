@@ -26,13 +26,13 @@ public class InfographicFragment extends Fragment {
     @BindView(R.id.end)    TextView endView;
     @BindView(R.id.goalTime)    TextView goalTimeView;
     @BindView(R.id.todayDate)    TextView todayDateView;
-    @BindView(R.id.curTime)    TextView curTimeView;
-    static ProgressBar progressBar;
+   static TextView curTimeView;
+    static tenthousand.hour.law.outliers.utils.ProgressBar progressBar;
     private static int goalTime, curTime;
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+
         setProgressBar(goalTime, curTime);
     }
 
@@ -41,13 +41,15 @@ public class InfographicFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView");
         View view = inflater.inflate(R.layout.fr_dashboard_infographic, container, false);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        curTimeView = (TextView) view.findViewById(R.id.curTime);
         ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
         setStrings(bundle);
         return view;
     }
 
-    SimpleDateFormat dateFormat;
+    static SimpleDateFormat dateFormat;
     public void setStrings(Bundle bundle){
         goalTime = Integer.valueOf(bundle.getString(Constants.goalTime));
         curTime = bundle.getInt(Constants.curTime) / 3600;
@@ -69,9 +71,17 @@ public class InfographicFragment extends Fragment {
 
     private static void setCurTime(int time){
         curTime = time;
+        if(progressBar != null){
+            progressBar.setCurAmount(curTime, dateFormat.format(new Date(System.currentTimeMillis())));
+            curTimeView.setText(curTime/3600+"");
+        }
+
     }
 
     private static void setGoalTime(int time){
         goalTime = time;
+        if(progressBar != null){
+            progressBar.setMax(goalTime);
+        }
     }
 }

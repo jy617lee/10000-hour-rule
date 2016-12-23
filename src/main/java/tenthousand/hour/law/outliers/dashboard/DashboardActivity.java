@@ -7,10 +7,11 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.orm.SugarContext;
 
@@ -36,8 +37,9 @@ public class DashboardActivity extends AppCompatActivity {
 
     @BindView(R.id.goal)    StyledTextView goal;
     @BindView(R.id.timer)   StyledTextView timer;
-    @BindView(R.id.btnStart)Button btnStart;
-    @BindView(R.id.btnListOrInfo)   Button btnListOrInfo;
+    @BindView(R.id.btnPlay) ImageButton btnStart;
+    @BindView(R.id.btnListOrInfo)
+    ImageButton btnListOrInfo;
 
     @BindString(R.string.btnStart) String start;
     @BindString(R.string.btnStop)   String stop;
@@ -66,6 +68,7 @@ public class DashboardActivity extends AppCompatActivity {
         setGoal();
         setTimer(initTime);
         listViewFragment();
+        btnListOrInfo.setTag(R.drawable.ic_graph);
     }
 
     @OnClick(R.id.btnReset)
@@ -82,12 +85,14 @@ public class DashboardActivity extends AppCompatActivity {
     @OnClick(R.id.btnListOrInfo)
     public void transFragment(){
         Log.d(TAG, "btnListOrInfo clicked");
-        if(btnListOrInfo.getText() == "리스트"){
-            btnListOrInfo.setText("인포");
-            listViewFragment();
 
+        if((int)btnListOrInfo.getTag() == R.drawable.ic_list){
+            btnListOrInfo.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_graph));
+            btnListOrInfo.setTag(R.drawable.ic_graph);
+            listViewFragment();
         }else{
-            btnListOrInfo.setText("리스트");
+            btnListOrInfo.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_list));
+            btnListOrInfo.setTag(R.drawable.ic_list);
             infographicFragment();
         }
     }
@@ -135,19 +140,19 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
 
-    @OnClick(R.id.btnStart)
-    public void startTimer(){
-        if(btnStart.getText().equals(start)){
-            Log.d(TAG, "startTimer click");
-            btnStart.setText(stop);
-            startTime = dateFormat.format(new Date(System.currentTimeMillis()));
-            startTimerService(start);
-            Log.d(TAG, startTime);
-        }else{
+    @OnClick(R.id.btnPlay)
+    public void startTimer() {
+        Log.d(TAG, "startTimer click");
+        startTime = dateFormat.format(new Date(System.currentTimeMillis()));
+        startTimerService(start);
+        Log.d(TAG, startTime);
+    }
+
+    @OnClick(R.id.btnPause)
+    public void stopTimer(){
             //STOP
             Log.d(TAG, "stopTimer click");
             startTimerService(stop);
-            btnStart.setText(start);
             timer.setText(initTime);
             setDuration(curTick);
             curTick = 0;
@@ -183,7 +188,6 @@ public class DashboardActivity extends AppCompatActivity {
             }
 
             InfographicFragment.setProgressBar(PurposeManager.getCurTime());
-        }
     }
 
     public String setAccumulateTime(int accumulation, String goalTime){
@@ -227,7 +231,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     public String getTimeInFormat(int curTime){
         //seconds to hour:min:sec format
-        String split = ":";
+        String split = " : ";
 
         StringBuffer res = new StringBuffer(6);
         int hour; int min; int sec;
