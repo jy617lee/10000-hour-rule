@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
     <LinearLayout
         android:id="@+id/purposeSummary"
         android:layout_width="match_parent"
-        android:layout_height="78dp"
+        android:layout_height="77dp"
         android:orientation="vertical"
-        android:background="@color/background"
         android:layout_alignParentTop="true"
         >
 
@@ -20,27 +20,27 @@
             >
             <ImageButton
                 android:id="@+id/btnListOrInfo"
-                android:layout_width="24.7dp"
-                android:layout_height="24.7dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="45.7dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginStart= "23dp"
+                android:layout_marginTop="39dp"
                 android:background="@drawable/ic_graph"/>
             <tenthousand.hour.law.outliers.utils.StyledTextView
                 android:id="@+id/goal"
                 android:layout_width="165dp"
                 android:layout_height="37.7dp"
-                android:layout_marginTop="40.3dp"
-                android:layout_marginLeft="43.7dp"
+                android:layout_marginTop="39.7dp"
+                android:layout_marginStart="37.3dp"
                 app:font="@string/point_font"
                 android:textSize="31.2sp"
                 android:textAlignment="center"
                 android:textColor="@color/dark_black"/>
             <ImageButton
                 android:id="@+id/btnReset"
-                android:layout_width="24dp"
-                android:layout_height="26.3dp"
-                android:layout_marginTop="44.7dp"
-                android:layout_marginLeft="43dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="39dp"
+                android:layout_marginLeft="35.3dp"
                 android:background="@drawable/ic_trash" />
         </LinearLayout>
     </LinearLayout>
@@ -49,7 +49,7 @@
     <FrameLayout
         android:id="@+id/frDashboard"
         android:layout_width="match_parent"
-        android:layout_height="330dp"
+        android:layout_height="480dp"
         android:layout_below="@+id/purposeSummary"/>
 
     <LinearLayout
@@ -58,28 +58,29 @@
         android:orientation="horizontal"
         android:background="@color/blue"
         android:layout_alignParentBottom="true"
-        android:paddingTop="28dp">
+        android:paddingTop="14.7dp">
         <ImageButton
             android:id="@+id/btnPlay"
-            android:layout_marginStart="40dp"
-            android:layout_width="21.7dp"
-            android:layout_height="31.3dp"
+            android:layout_marginStart="23dp"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
             android:background="@drawable/btn_play" />
         <tenthousand.hour.law.outliers.utils.StyledTextView
             android:id="@+id/timer"
-            android:layout_width="170dp"
+            android:layout_width="131dp"
             android:layout_height="wrap_content"
-            app:font="@string/roboto_light"
+            app:font="@string/roboto_regular"
             android:textSize="33.2sp"
             android:textAlignment="center"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="37.3dp"
+            android:layout_marginTop="14.3dp"
             android:textColor="@color/white"
             android:includeFontPadding="false"/>
         <ImageButton
             android:id="@+id/btnPause"
-            android:layout_width="22.3dp"
-            android:layout_height="29.3dp"
-            android:layout_marginStart="30dp"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="37dp"
             android:background="@drawable/btn_pause" />
     </LinearLayout>
 </RelativeLayout>
