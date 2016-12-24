@@ -10,9 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.owater.library.CircleTextView;
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,6 +23,7 @@ import tenthousand.hour.law.outliers.ItemAdapter;
 import tenthousand.hour.law.outliers.R;
 import tenthousand.hour.law.outliers.utils.Constants;
 import tenthousand.hour.law.outliers.utils.EndlessScrollListener;
+import tenthousand.hour.law.outliers.utils.StyledTextView;
 
 /**
  * Created by jeeyu_000 on 2016-12-10.
@@ -29,7 +31,8 @@ import tenthousand.hour.law.outliers.utils.EndlessScrollListener;
 public class ListViewFragment extends Fragment {
     private static String TAG = "ListViewFragment";
     @BindView(R.id.dailyRecords)    ListView listView;
-    static CircleTextView percentSummary;
+    static StyledTextView percentSummary;
+    @BindView(R.id.recentDate)          StyledTextView recentDate;
     @BindView(R.id.listViewGoalTime)    TextView listViewGoalTime;
     @BindView(R.id.listViewEnd)         TextView listViewEnd;
     static TextView todayTimeSumTextView;
@@ -44,13 +47,17 @@ public class ListViewFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         setListView();
         todayTimeSumTextView = (TextView) view.findViewById(R.id.todayTimeSumText);
-        percentSummary = (CircleTextView) view.findViewById(R.id.percentSummary);
+        percentSummary = (StyledTextView) view.findViewById(R.id.percentSummary);
         if(!itemsAdapter.isEmpty()){
             todayTimeSumTextView.setText(intArrToString(itemsAdapter.getItem(0).duration));
             String[] arr= itemsAdapter.getItem(0).accumulation.split("/");
             String percent = (Integer.parseInt(arr[0])* 100) / Integer.parseInt(goalTime)  + "";
             percentSummary.setText(percent + "%");
         }
+
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd");
+        recentDate.setText(dateFormat.format(new Date(System.currentTimeMillis())));
+
 
         listViewGoalTime.setText(goalTime);
         listViewEnd.setText(end);
@@ -140,7 +147,7 @@ public class ListViewFragment extends Fragment {
         todayTimeSumTextView.setText(todayTimeSumText);
         String[] arr= newItem.accumulation.split("/");
         String percent = (Integer.parseInt(arr[0])* 100) / Integer.parseInt(goalTime)  + "";
-        percentSummary.setText(percent + "%");        percentSummary.setText(percent + "");
+        percentSummary.setText(percent + "%");
     }
 
     public static String getRecentData(){

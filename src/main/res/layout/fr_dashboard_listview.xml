@@ -3,71 +3,130 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginLeft="23.3dp"
+    android:layout_marginRight="23.3dp"
+    android:layout_marginTop="23dp"
+    android:background="@color/background">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <View
-            android:layout_width="30dp"
+            android:layout_marginTop="5.3dp"
+            android:layout_width="90dp"
             android:layout_height="1dp"
-            android:background="@color/colorAccent"/>
+            android:background="#595757"/>
 
-        <TextView
-            android:id="@+id/listViewGoalTime"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="105dp"
+            android:layout_height="11dp">
+            <tenthousand.hour.law.outliers.utils.StyledTextView
+                android:layout_marginStart="8.3dp"
+                android:id="@+id/listViewGoalTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:font="@string/roboto_regular"
+                android:textColor="@color/text_black"
+                android:textSize="13.3sp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="hour"/>
+            <tenthousand.hour.law.outliers.utils.StyledTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13.3sp"
+                app:font="@string/roboto_regular"
+                android:textColor="@color/text_black"
+                android:text=" HOUR"/>
 
-        <TextView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:text="Until"/>
+            <tenthousand.hour.law.outliers.utils.StyledTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13.3sp"
+                app:font="@string/roboto_light"
+                android:textColor="@color/text_black"
+                android:text=" Until "/>
 
-        <TextView
-            android:id="@+id/listViewEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <tenthousand.hour.law.outliers.utils.StyledTextView
+                android:id="@+id/listViewEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_black"
+                app:font="@string/roboto_light"
+                android:textSize="13.3sp"/>
+        </LinearLayout>
 
         <View
-            android:layout_width="30dp"
+            android:layout_width="90dp"
             android:layout_height="1dp"
-            android:background="@color/colorAccent"/>
+            android:background="#595757"
+            android:layout_marginTop="5.3dp"
+            android:layout_marginStart="9dp"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <com.owater.library.CircleTextView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:textColor="#000000"
-            android:text="TOTAL"
-            android:gravity="center"
-            />
-        <TextView
+        android:layout_height="85.7dp"
+        android:orientation="horizontal"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="13.7dp">
+        <FrameLayout
+            android:layout_width="63dp"
+            android:layout_height="63dp"
+            android:background="@drawable/bg_round_white">
+            <tenthousand.hour.law.outliers.utils.StyledTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13.3sp"
+                android:textColor="@color/blue"
+                android:textAlignment="center"
+                android:text="TOTAL"
+                android:layout_marginTop="21.7dp"
+                app:font="@string/roboto_regular"/>
+            <tenthousand.hour.law.outliers.utils.StyledTextView
+                android:id="@+id/recentDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13.3sp"
+                android:textColor="@color/blue"
+                android:textAlignment="center"
+                android:layout_marginTop="32dp"
+                app:font="@string/roboto_light"/>
+        </FrameLayout>
+        <tenthousand.hour.law.outliers.utils.StyledTextView
             android:id="@+id/todayTimeSumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:00:00"/>
-        <com.owater.library.CircleTextView
-            android:id="@+id/percentSummary"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:textColor="#000000"
-            android:text="0%"
-            android:gravity="center"
+            android:text="00:00:00"
+            android:textColor="@color/blue"
+            android:textSize="40sp"
+            app:font="@string/roboto_regular"
+            android:layout_marginLeft="26dp"
+            android:layout_marginRight="26dp"
+            android:layout_marginTop="17dp"
             />
+        <FrameLayout
+            android:layout_width="63dp"
+            android:layout_height="63dp"
+            android:background="@drawable/bg_round_blue">
+            <tenthousand.hour.law.outliers.utils.StyledTextView
+                android:id="@+id/percentSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="23.1sp"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:layout_marginTop="22.7dp"
+                app:font="@string/roboto_light"/>
+        </FrameLayout>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorAccent"/>
+
+
     <ListView
         android:id="@+id/dailyRecords"
         android:layout_width="match_parent"
