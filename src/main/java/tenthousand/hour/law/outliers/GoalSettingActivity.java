@@ -3,6 +3,7 @@ package tenthousand.hour.law.outliers;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -11,7 +12,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.DatePicker;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -39,14 +39,15 @@ public class GoalSettingActivity extends AppCompatActivity {
         }
         //get settings
         String mPurposeName = purposeName.getText().toString();
-        String mTime = time.getSelectedItem().toString();
-        String mStart = start.getText().toString();
+        String mTime = time.getText().toString();;
         String mEnd = end.getText().toString();
         String mFinalGoal = "";
-        Log.d(TAG, mPurposeName + " " + mTime + " "+ mStart + " " + mEnd + " "+ mFinalGoal);
+
+        //// TODO: 2016-12-24 start 날짜 오늘 날짜로 넣어주기
+//        Log.d(TAG, mPurposeName + " " + mTime + " "+ mStart + " " + mEnd + " "+ mFinalGoal);
 
         //save sharedPreference
-        PurposeManager.setPurpose(getApplicationContext(), mPurposeName, mTime, mStart, mEnd, mFinalGoal);
+        PurposeManager.setPurpose(getApplicationContext(), mPurposeName, mTime, null, mEnd, mFinalGoal);
 
         //go DashboardActivity
         Intent intent = new Intent(this, DashboardActivity.class);
@@ -62,11 +63,6 @@ public class GoalSettingActivity extends AppCompatActivity {
         return true;
     }
 
-    @OnClick(R.id.start)
-    public void start(){
-        Log.d(TAG, "start clicked");
-        showDatePickerDialog(Constants.start);
-    }
 
     @OnClick(R.id.end)
     public void end(){
@@ -74,16 +70,16 @@ public class GoalSettingActivity extends AppCompatActivity {
         showDatePickerDialog(Constants.end);
     }
 
-    static StyledTextView start;
     static StyledTextView end;
     @BindView(R.id.purposeName) StyledEditTextView purposeName;
-    @BindView(R.id.time)        Spinner time;
+    @BindView(R.id.purposeDetail) StyledEditTextView purposeDetail;
+    @BindView(R.id.time)        StyledEditTextView time;
+    @BindView(R.id.resolution ) StyledEditTextView resolution;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal_setting);
         ButterKnife.bind(this);
-        start = (StyledTextView) findViewById(R.id.start);
         end = (StyledTextView) findViewById(R.id.end);
 
         //if there's no existing purpose, show xml
@@ -97,21 +93,45 @@ public class GoalSettingActivity extends AppCompatActivity {
             finish();
         }
 
-        purposeName.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                v.setFocusable(true);
-                v.setFocusableInTouchMode(true);
-                return false;
-            }
-        });
+        StyledEditTextView[] editTextArr = {purposeName, purposeDetail, time, resolution};
+        initEdittext(editTextArr);
+
+    }
+
+    private void initEdittext(StyledEditTextView [] arr) {
+        for(int i = 0; i < arr.length; i++) {
+            arr[i].setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    v.setFocusable(true);
+                    v.setFocusableInTouchMode(true);
+                    return false;
+                }
+            });
+
+//            arr[i].setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//                @Override
+//                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+//                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                        View view = getCurrentFocus();
+//                        InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+//                        try{
+//                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+//                        }catch(NullPointerException e){
+//                            e.printStackTrace();
+//                        }
+//                        return true;
+//                    }
+//                    return false;
+//                }
+//            });
+        }
     }
 
     public void setDefaultDate(){
         Log.d(TAG, "setDate");
-        SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MM dd");
         String date = sdf.format(new Date());
-        start.setText(date);
         end.setText(date);
     }
 
@@ -152,19 +172,18 @@ public class GoalSettingActivity extends AppCompatActivity {
             String d = day > 9 ? day+"" : "0"+day;
             date.append(d);
             switch(flag){
-                case Constants.start : {
-                    if(!checkStartDate(year, month+1, day)){
-                        Toast.makeText(getContext(), "Start cannot be later than End", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    start.setText(date);
-                    break;
-                }
                 case Constants.end : {
                     if(!checkEndDate(year, month+1, day)){
                         Toast.makeText(getContext(), "End cannot be earlier than Start", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    if(Build.VERSION.SDK_INT < 23){
+                        end.setTextColor(getResources().getColor(R.color.blue));
+
+                    }else{
+                        end.setTextColor(getResources().getColor(R.color.blue, null));
+                    }
+
                     end.setText(date);
                     break;
                 }
@@ -172,8 +191,11 @@ public class GoalSettingActivity extends AppCompatActivity {
         }
     }
 
+
     public static boolean checkEndDate(int year, int month, int day){
-        String startDate[] = start.getText().toString().split("/");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        String date = sdf.format(new Date());
+        String startDate[] = date.split("/");
         if(Integer.parseInt(startDate[0]) > year){
             return false;
         } else if(Integer.parseInt(startDate[1]) > month) {
