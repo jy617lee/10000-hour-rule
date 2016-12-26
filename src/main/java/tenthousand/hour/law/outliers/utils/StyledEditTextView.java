@@ -16,17 +16,25 @@ import tenthousand.hour.law.outliers.R;
 public class StyledEditTextView extends EditText {
     public StyledEditTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        if(fonts == null) {
+            fonts = new HashMap<String, Typeface>();
+        }
         applyTypeface(context, attrs);
     }
 
     public StyledEditTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        if(fonts == null) {
+            fonts = new HashMap<String, Typeface>();
+        }
         applyTypeface(context, attrs);
     }
 
     public StyledEditTextView(Context context) {
         super(context);
-        fonts = new HashMap<String, Typeface>();
+        if(fonts == null) {
+            fonts = new HashMap<String, Typeface>();
+        }
     }
 
     HashMap<String, Typeface> fonts;

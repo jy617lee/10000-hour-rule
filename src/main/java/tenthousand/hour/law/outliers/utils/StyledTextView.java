@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.TextView;
 
@@ -18,17 +19,24 @@ public class StyledTextView extends TextView {
 
     public StyledTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        if(fonts == null) {
+            fonts = new HashMap<String, Typeface>();
+        }
         applyTypeface(context, attrs);
     }
 
     public StyledTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        if(fonts == null) {
+            fonts = new HashMap<String, Typeface>();
+        }
         applyTypeface(context, attrs);
     }
 
     public StyledTextView(Context context) {
         super(context);
         fonts = new HashMap<String, Typeface>();
+        Log.d("Styled Text View", "constructor");
     }
 
     HashMap<String, Typeface> fonts;
@@ -45,6 +53,7 @@ public class StyledTextView extends TextView {
                 typeface = Typeface.createFromAsset(context.getAssets(), typefaceName);
                 fonts.put(typefaceName, typeface);
             }
+            Log.d("Styled Text View", typefaceName);
             setTypeface(typeface);
         } catch(Exception e) {}
     }
