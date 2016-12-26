@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="88.7dp"
+            android:layout_marginTop="83dp"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp">
             <tenthousand.hour.law.outliers.utils.StyledEditTextView
@@ -45,112 +45,128 @@
                 android:background="@null"
                 android:inputType="text"
                 android:maxLines="1"
+                android:layout_marginTop="7dp"
                 />
 
             <View
-                android:layout_marginTop="70dp"
+                android:layout_marginTop="65dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#595757"/>
 
-            <tenthousand.hour.law.outliers.utils.StyledTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Hour Goal"
-                android:textSize="13.3sp"
-                app:font="@string/roboto_light"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="8.3dp"
-                />
 
-            <tenthousand.hour.law.outliers.utils.StyledEditTextView
-                android:id="@+id/time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textColorHint="@drawable/selector"
-                android:textSize="36.7sp"
-                android:textColor="@color/blue"
-                android:textAlignment="center"
-                android:hint="100"
-                android:maxWidth="380dp"
-                android:background="@null"
-                app:font="@string/roboto_regular"
-                android:focusable="false"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="8.3dp"
-                android:singleLine="true"
-                />
 
-            <View
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0.3dp"
-                android:background="#595757"
-                android:layout_marginTop="25.7dp"/>
+                android:layout_height="77.7dp">
+                <tenthousand.hour.law.outliers.utils.StyledTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hour Goal"
+                    android:textSize="13.3sp"
+                    app:font="@string/roboto_light"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="8.3dp"
+                    android:layout_alignParentStart="true"
+                    />
 
-            <tenthousand.hour.law.outliers.utils.StyledTextView
+                <tenthousand.hour.law.outliers.utils.StyledEditTextView
+                    android:id="@+id/time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textColorHint="@drawable/selector"
+                    android:textSize="36.7sp"
+                    android:textColor="@color/blue"
+                    android:textAlignment="center"
+                    android:hint="100"
+                    android:maxWidth="380dp"
+                    android:background="@null"
+                    app:font="@string/roboto_regular"
+                    android:focusable="false"
+                    android:layout_centerInParent="true"
+                    android:singleLine="true"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:background="#595757"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Until"
-                android:textSize="13.3sp"
-                app:font="@string/roboto_light"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="8.3dp"
-                />
+                android:layout_height="77.7dp">
+                <tenthousand.hour.law.outliers.utils.StyledTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Until"
+                    android:textSize="13.3sp"
+                    app:font="@string/roboto_light"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="8.3dp"
+                    android:layout_alignParentStart="true"
+                    />
 
-            <tenthousand.hour.law.outliers.utils.StyledTextView
-                android:id="@+id/end"
+                <tenthousand.hour.law.outliers.utils.StyledTextView
+                    android:id="@+id/end"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="36.7sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:textAlignment="center"
+                    android:text="@string/date"
+                    app:font="@string/roboto_regular"
+                    android:layout_centerInParent="true"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:background="#595757"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="36.7sp"
-                android:textColor="@android:color/darker_gray"
-                android:textAlignment="center"
-                android:text="@string/date"
-                app:font="@string/roboto_regular"
-                android:layout_marginTop="6.3dp"/>
+                android:layout_height="77.7dp">
+                <tenthousand.hour.law.outliers.utils.StyledTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Resolution"
+                    android:textSize="13.3sp"
+                    app:font="@string/roboto_light"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="8.3dp"
+                    android:layout_alignParentStart="true"
+                    />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"
-                android:background="#595757"
-                android:layout_marginTop="25.7dp"/>
+                <tenthousand.hour.law.outliers.utils.StyledEditTextView
+                    android:id="@+id/resolution"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@drawable/selector"
+                    android:textSize="24.3sp"
+                    android:textColor="@color/blue"
+                    android:textAlignment="center"
+                    android:hint="do my best!"
+                    android:maxWidth="380dp"
+                    android:background="@null"
+                    app:font="@string/roboto_regular"
+                    android:focusable="false"
+                    android:layout_centerInParent="true"
+                    android:maxLength="30"/>
 
-            <tenthousand.hour.law.outliers.utils.StyledTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Resolution"
-                android:textSize="13.3sp"
-                app:font="@string/roboto_light"
-                android:layout_marginTop="6.3dp"
-
-                />
-
-            <tenthousand.hour.law.outliers.utils.StyledEditTextView
-                android:id="@+id/resolution"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@drawable/selector"
-                android:textSize="24.3sp"
-                android:textColor="@color/blue"
-                android:textAlignment="center"
-                android:hint="do my best!"
-                android:maxWidth="380dp"
-                android:background="@null"
-                app:font="@string/roboto_regular"
-                android:focusable="false"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="8.3dp"
-                android:maxLength="30"/>
-
-            <View
-                android:layout_marginTop="70dp"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#595757"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#595757"
+                    android:layout_alignParentBottom="true"/>
+            </RelativeLayout>
         </LinearLayout>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/btnSave"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -158,12 +174,11 @@
         android:layout_alignParentBottom="true"
         android:background="@color/blue">
         <ImageView
-            android:layout_marginStart="163.1dp"
-            android:layout_marginTop="30.8dp"
-            android:layout_width="33.9dp"
-            android:layout_height="23.3dp"
+            android:layout_centerInParent="true"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
             android:background="@drawable/btn_done"/>
         
 
-    </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

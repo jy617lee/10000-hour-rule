@@ -75,7 +75,8 @@ public class ListViewFragment extends Fragment {
         ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
         goalTime = bundle.getString(Constants.goalTime);
-        end = bundle.getString(Constants.end);
+        String[] endArr = bundle.getString(Constants.end).split("/");
+        end = endArr[1] + "/" + endArr[2];
         return view;
     }
 

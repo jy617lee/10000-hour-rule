@@ -187,7 +187,7 @@ public class DashboardActivity extends AppCompatActivity {
                 ListViewFragment.addNewData(newItem, purpose.getCurTime());
             }
 
-            InfographicFragment.setProgressBar(PurposeManager.getCurTime());
+            InfographicFragment.setProgressBar( Integer.parseInt(purpose.getGoalTime()), PurposeManager.getCurTime()/3600);
     }
 
     public String setAccumulateTime(int accumulation, String goalTime){

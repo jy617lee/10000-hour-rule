@@ -13,24 +13,24 @@
         android:layout_alignParentTop="true"
         >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="31dp"
             >
             <ImageButton
                 android:id="@+id/btnListOrInfo"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:layout_marginStart= "23dp"
-                android:layout_marginTop="39dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerInParent="true"
                 android:background="@drawable/ic_graph"/>
             <tenthousand.hour.law.outliers.utils.StyledTextView
                 android:id="@+id/goal"
-                android:layout_width="165dp"
-                android:layout_height="37.7dp"
-                android:layout_marginTop="39.7dp"
-                android:layout_marginStart="37.3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 app:font="@string/point_font"
                 android:textSize="31.2sp"
                 android:textAlignment="center"
@@ -39,10 +39,11 @@
                 android:id="@+id/btnReset"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
-                android:layout_marginTop="39dp"
-                android:layout_marginLeft="35.3dp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="23.3dp"
                 android:background="@drawable/ic_trash" />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
 
@@ -52,35 +53,36 @@
         android:layout_height="480dp"
         android:layout_below="@+id/purposeSummary"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="83dp"
-        android:orientation="horizontal"
         android:background="@color/blue"
-        android:layout_alignParentBottom="true"
-        android:paddingTop="14.7dp">
+        android:layout_alignParentBottom="true">
         <ImageButton
             android:id="@+id/btnPlay"
+            android:layout_centerVertical="true"
             android:layout_marginStart="23dp"
+            android:layout_alignParentStart="true"
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:background="@drawable/btn_play" />
         <tenthousand.hour.law.outliers.utils.StyledTextView
             android:id="@+id/timer"
-            android:layout_width="131dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:font="@string/roboto_regular"
             android:textSize="33.2sp"
             android:textAlignment="center"
-            android:layout_marginStart="37.3dp"
-            android:layout_marginTop="14.3dp"
+            android:layout_centerInParent="true"
             android:textColor="@color/white"
             android:includeFontPadding="false"/>
         <ImageButton
             android:id="@+id/btnPause"
+            android:layout_centerVertical="true"
             android:layout_width="54dp"
             android:layout_height="54dp"
-            android:layout_marginStart="37dp"
+            android:layout_marginEnd="23dp"
+            android:layout_alignParentEnd="true"
             android:background="@drawable/btn_pause" />
-    </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>
