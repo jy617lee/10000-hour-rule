@@ -195,8 +195,8 @@ public class ProgressBar extends View {
             if(curPercentY >= barRectF.bottom){
                 curPercentY = barRectF.bottom;
                 recentDateY = curPercentY - recentDateSize;
-            }else if(recentDateY - recentDateSize < barRectF.top){
-                recentDateY = barRectF.top + recentDateSize;
+            }else if(recentDateY - recentDateSize < 0){
+                recentDateY = recentDateSize;
                 curPercentY = recentDateY + recentDateSize;
             }
         }
