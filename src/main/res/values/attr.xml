@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="StyledTextView">
-    <attr name="font" format="string"/>
-</declare-styleable>
+        <attr name="font" format="string"/>
+    </declare-styleable>
+<!--
+    <declare-styleable name="StyledEditTextView">
+        <attr name="font" format="string"/>
+    </declare-styleable>-->
     <declare-styleable name="ProgressBar">
         <attr name="max" format="integer" />
         <attr name="cur_amount" format="integer" />
         <attr name="bar_color" format="reference|color" />
         <attr name="bar_width" format="dimension" />
-        <attr name="text_color" format="reference|color" />
         <attr name="amount_text" format="reference|string" />
         <attr name="amount_text_size" format="reference|dimension" />
         <attr name="unit_text" format="reference|string" />
         <attr name="unit_text_size" format="reference|dimension" />
-        <attr name="text_font" format="reference|string" />
-
+        <attr name="amount_text_font" format="reference|string" />
+        <attr name="unit_text_font" format="reference|string" />
         <attr name="pin_img" format="reference"/>
         <attr name="pin_width" format="reference|dimension"/>
         <attr name="pin_height" format="reference|dimension"/>
+        <attr name="text_color" format="reference|color"/>
+        <attr name="text_color_inside" format="reference|color"/>
+        <attr name="text_color_upside" format="reference|color"/>
+        <attr name="pin_text_size" format = "reference|dimension"/>
+
     </declare-styleable>
     </resources>
 

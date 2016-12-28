@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -22,10 +23,10 @@ import tenthousand.hour.law.outliers.R;
  */
 public class ProgressBar extends View {
 
-    private float max;
+    private static float max;
     private float curAmount;
     private float barHeight, barWidth;
-    private String font;
+    private String amountTextFont, unitTextFont;
     private float amountTextX, amountTextY, amountTextSize, amountTextWidth;
     String amountText, unitText;
     private float unitTextX, unitTextY, unitTextSize, unitTextWidth;
@@ -51,8 +52,12 @@ public class ProgressBar extends View {
     private RectF pinRectF;
 
     private String recentDate;
-    private float recentDateX, recentDateY, recentDateSize, recentDateWidth;
+    private float recentDateX, recentDateY, recentDateSize;
     Paint recentDatePaint;
+
+    private String curPercent;
+    private float curPercentX, curPercentY, curPercentSize;
+    Paint curPercentPaint;
 
 
     private final int defaultPinWidth = 30;
@@ -84,24 +89,29 @@ public class ProgressBar extends View {
         barWidth = attributes.getDimension(R.styleable.ProgressBar_bar_width, defaultBarWidth);
         barColor = attributes.getInt(R.styleable.ProgressBar_bar_color, defaultBarColor);
         textColor = attributes.getInt(R.styleable.ProgressBar_text_color, defaultTextColor);
+//        textColorInside = attributes.getInt(R.styleable.ProgressBar_text_color_inside, defaultTextColor);
+//        textColorUpside = attributes.getInt(R.styleable.ProgressBar_text_color_upside, defaultTextColor);
         amountTextSize = attributes.getDimension(R.styleable.ProgressBar_amount_text_size, defaultAmountTextSize);
         amountText = attributes.getString(R.styleable.ProgressBar_amount_text);
+        amountTextFont = attributes.getString(R.styleable.ProgressBar_amount_text_font);
         unitTextSize = attributes.getDimension(R.styleable.ProgressBar_unit_text_size, defaultUnitTextSize);
         unitText =  attributes.getString(R.styleable.ProgressBar_unit_text);
+        unitTextFont = attributes.getString(R.styleable.ProgressBar_unit_text_font);
         if(unitText == null){
             unitText = defaultUnitText;
         }
+        recentDateSize = attributes.getFloat(R.styleable.ProgressBar_pin_text_size, 39.0f);
 
         pinImg = attributes.getDrawable(R.styleable.ProgressBar_pin_img);
         if(pinImg != null){
             pinWidth = attributes.getDimension(R.styleable.ProgressBar_pin_width, defaultPinWidth);
-            pinHeight = attributes.getDimension(R.styleable.ProgressBar_pin_width, defaultPinHeight);
+            pinHeight = attributes.getDimension(R.styleable.ProgressBar_pin_height, defaultPinHeight);
         }
 
         //일단
-        recentDateSize = unitTextSize;
         if(recentDate == null){
             recentDate = getDate();
+            curPercent = (int)(curAmount / max * 100) + "%";
         }
     }
 
@@ -120,6 +130,7 @@ public class ProgressBar extends View {
     protected void onDraw(Canvas canvas) {
         initPaint();
         calculateHeight();
+
         canvas.drawRect(barRectF, barPaint);
         if(amountText != null){
             canvas.drawText(amountText, amountTextX, amountTextY, amountTextPaint);
@@ -129,6 +140,7 @@ public class ProgressBar extends View {
             Bitmap pinImgBitmap = drawableToBitmap(pinImg);
             canvas.drawBitmap(pinImgBitmap, null, pinRectF, pinPaint);
             canvas.drawText(recentDate, recentDateX, recentDateY, recentDatePaint);
+            canvas.drawText(curPercent, curPercentX, curPercentY, curPercentPaint);
         }
     }
 
@@ -155,13 +167,17 @@ public class ProgressBar extends View {
                 amountTextX = barRectF.left + (barWidth - amountTextWidth) / 2;
             }
             unitTextX = barRectF.left + (barWidth - unitTextWidth) / 2;
-            if((curAmount / max)*100 < 30){
-                unitTextY = barRectF.top;
-                amountTextY = barRectF.top - unitTextSize;
+            if((curAmount / max)*100 < 15){
+                unitTextY = barRectF.top-20;
+                amountTextY = barRectF.top - unitTextSize-20;
+                textColor = getResources().getColor(R.color.blue);
             }else{
                 unitTextY = barRectF.bottom - (barHeight/2 - (amountTextSize + unitTextSize)/2);
                 amountTextY = unitTextY - unitTextSize;
+                textColor = getResources().getColor(R.color.white);
             }
+            amountTextPaint.setColor(textColor);
+            unitTextPaint.setColor(textColor);
         }
 
         if(pinImg != null){
@@ -170,8 +186,19 @@ public class ProgressBar extends View {
             pinRectF.top = barRectF.top - pinHeight / 2;
             pinRectF.bottom = barRectF.top + pinHeight / 2;
 
-            recentDateX = pinRectF.right;
-            recentDateY = pinRectF.bottom - recentDateSize/2;
+            recentDateX = pinRectF.right + 20;
+            recentDateY = pinRectF.bottom - recentDateSize/2-10;
+
+            curPercentX = recentDateX;
+            curPercentY = recentDateY + recentDateSize;
+
+            if(curPercentY >= barRectF.bottom){
+                curPercentY = barRectF.bottom;
+                recentDateY = curPercentY - recentDateSize;
+            }else if(recentDateY - recentDateSize < barRectF.top){
+                recentDateY = barRectF.top + recentDateSize;
+                curPercentY = recentDateY + recentDateSize;
+            }
         }
     }
 
@@ -184,11 +211,18 @@ public class ProgressBar extends View {
             amountTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             amountTextPaint.setColor(textColor);
             amountTextPaint.setTextSize(amountTextSize);
+            Typeface fontString = Typeface.createFromAsset(getContext().getAssets(),
+                    amountTextFont);
+            amountTextPaint.setTypeface(fontString);
             amountTextWidth = amountTextPaint.measureText(amountText);
 
             unitTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            unitTextPaint.setColor(textColor);
+
             unitTextPaint.setTextSize(unitTextSize);
+//            Typeface fontString2 = Typeface.createFromAsset(getContext().getAssets(),
+//                    unitTextFont);
+//            unitTextPaint.setTypeface(fontString2);
+
             unitTextWidth = unitTextPaint.measureText(unitText);
         }
 
@@ -197,9 +231,18 @@ public class ProgressBar extends View {
             pinRectF = new RectF(0, 0, 0, 0);
 
             recentDatePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            recentDatePaint.setColor(textColor);
-            recentDatePaint.setTextSize(unitTextSize);
-            recentDateWidth = recentDatePaint.measureText(recentDate);
+            recentDatePaint.setColor(getResources().getColor(R.color.text_black));
+            recentDatePaint.setTextSize(recentDateSize);
+            Typeface fontString = Typeface.createFromAsset(getContext().getAssets(),
+                    "RobotoCondensed-Light.ttf");
+            recentDatePaint.setTypeface(fontString);
+
+            curPercentPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            curPercentPaint.setColor(getResources().getColor(R.color.text_black));
+            curPercentPaint.setTextSize(recentDateSize);
+            Typeface fontString2 = Typeface.createFromAsset(getContext().getAssets(),
+                    "RobotoCondensed-Regular.ttf");
+            curPercentPaint.setTypeface(fontString2);
         }
     }
 
@@ -212,6 +255,8 @@ public class ProgressBar extends View {
         this.curAmount = curAmount;
         this.amountText = curAmount+"";
         this.recentDate = recentDate;
+        this.curPercent = (int)(this.curAmount / this.max * 100) + "%";
+
         this.invalidate();
     }
 

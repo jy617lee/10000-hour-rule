@@ -3,65 +3,111 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
-    <LinearLayout
+    android:orientation="vertical"
+    android:layout_marginTop="35dp"
+    android:layout_marginBottom="5dp"
+>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <LinearLayout
+        android:layout_height="match_parent"
+>
+        <tenthousand.hour.law.outliers.utils.StyledTextView
+            android:id="@+id/goalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="완료시점" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="목표한 시간의 양" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="오늘 날짜" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="지금까지 해온 시간" />
-        </LinearLayout>
+            android:text="Goal"
+            android:textSize="13.3sp"
+            android:textColor="@color/text_black"
+            app:font="@string/roboto_light"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="85dp"
+            android:layout_marginEnd="13.7dp"
+            android:layout_marginBottom="5dp" />
+        <View
+            android:id="@+id/topLine"
+            android:layout_width="117dp"
+            android:layout_height="1dp"
+            android:background="#595757"
+            android:layout_toEndOf="@id/goalText"
+            android:layout_marginTop="8dp" />
 
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/barLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/end"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-            <TextView
-                android:id="@+id/goalTime"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-            <TextView
-                android:id="@+id/todayDate"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-            <TextView
-                android:id="@+id/curTime"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_below="@id/topLine">
+
+            <ImageView
+                android:layout_width="69dp"
+                android:layout_height="392dp"
+                android:layout_marginStart="145.3dp"
+                android:background="@drawable/img_graph_bar"/>
+            <tenthousand.hour.law.outliers.utils.ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="132dp"
+                android:layout_height="392dp"
+                app:bar_color="@color/blue"
+                app:bar_width="69dp"
+                app:amount_text_size="40sp"
+                app:amount_text_font="@string/roboto_bold"
+                app:unit_text="hour"
+                app:unit_text_size="19.3sp"
+                app:unit_text_font="@string/roboto_light"
+                app:pin_img="@drawable/ic_green_arrow"
+                app:pin_width="27.3dp"
+                app:pin_height="13dp"
+                app:text_color="@color/white"
+                android:layout_marginStart="145.3dp"
+                />
+            <LinearLayout
+                android:layout_width="69dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="145.3dp"
+                android:layout_marginTop="4dp"
+                android:orientation="vertical">
+                <tenthousand.hour.law.outliers.utils.StyledTextView
+                    android:id="@+id/infoGoalTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13.3sp"
+                    android:textColor="@color/text_black"
+                    android:textAlignment="center"
+                    app:font="@string/roboto_regular"/>
+                <tenthousand.hour.law.outliers.utils.StyledTextView
+                    android:id="@+id/infoGoalEnd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13.3sp"
+                    android:textColor="@color/text_black"
+                    android:textAlignment="center"
+                    app:font="@string/roboto_light"/>
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <tenthousand.hour.law.outliers.utils.StyledTextView
+            android:id="@+id/startText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:textSize="13.3sp"
+            android:textColor="@color/text_black"
+            app:font="@string/roboto_light"
+            android:layout_marginTop="370dp"
+            android:layout_marginStart="85dp"
+            android:layout_marginEnd="13.7dp"
+            android:layout_below="@id/goalText"
+            />
+        <View
+            android:id="@+id/bottomLine"
+            android:layout_width="117dp"
+            android:layout_height="1dp"
+            android:background="#595757"
+            android:layout_below="@id/barLayout"
+            android:layout_toEndOf="@id/startText" />
+    </RelativeLayout>
 
 
-    <tenthousand.hour.law.outliers.utils.ProgressBar
-        android:layout_gravity="center"
-        android:id="@+id/progressBar"
-        android:layout_width="50dp"
-        android:layout_height="300dp"
-        android:background="@color/colorAccent"
-        app:bar_color="@color/colorPrimary"
-        app:bar_width="30dp"
-       />
 
 </LinearLayout>
