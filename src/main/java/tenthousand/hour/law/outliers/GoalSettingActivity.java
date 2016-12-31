@@ -139,7 +139,7 @@ public class GoalSettingActivity extends AppCompatActivity {
         Log.d(TAG, "setDate");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy MM dd");
         String date = sdf.format(new Date());
-        end.setText(date);
+        end.setText("ex) " + date);
     }
 
     public void showDatePickerDialog(String flag) {

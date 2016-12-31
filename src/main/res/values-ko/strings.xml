@@ -5,15 +5,16 @@
     <string name="start">시작 일자</string>
     <string name="time">총 시간</string>
     <string name="purpose_name">목표이름</string>
-    <string name="purpose_example">운동하기</string>
+    <string name="purpose_example">예)영어공부</string>
     <string name="save_goal">Save Goal</string>
     <string name="date">2010-09-15</string>
-    <string name="font">NotoSans-Regular.ttf</string>
     <string name="btnStart">Start</string>
     <string name="btnStop">Stop</string>
     <string name="unit">hours</string>
     <string name="initTime">"00 : 00 : 00"</string>
     <string name="hoursOf">시간 / </string>
+    <string name="res_code">resultCode</string>
+    <string name="start_or_stop">startOrStop</string>
     <string-array name="time_array">
         <item>100</item>
         <item>300</item>
@@ -22,6 +23,8 @@
         <item>10000</item>
     </string-array>
 
-    <string name="pointFont">KaushanScript-Regular.otf</string>
-
+    <string name="point_font">KaushanScript-Regular.otf</string>
+    <string name="roboto_light">RobotoCondensed-Light.ttf</string>
+    <string name="roboto_regular">RobotoCondensed-Regular.ttf</string>
+    <string name="roboto_bold">RobotoCondensed-Bold.ttf</string>
 </resources>

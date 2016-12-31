@@ -51,7 +51,7 @@
                 app:unit_text_size="19.3sp"
                 app:unit_text_font="@string/roboto_light"
                 app:pin_img="@drawable/ic_green_arrow"
-                app:pin_width="27.3dp"
+                app:pin_width="8.3dp"
                 app:pin_height="13dp"
                 app:text_color="@color/white"
                 android:layout_marginStart="145.3dp"

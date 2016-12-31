@@ -154,7 +154,12 @@ public class ProgressBar extends View {
 
 
     public void calculateHeight(){
-        barHeight = getHeight() * curAmount / max;
+        if(curAmount / max >= 1){
+            barHeight = getHeight();
+        }else{
+            barHeight = getHeight() * curAmount / max;
+        }
+
         barRectF.left = getPaddingLeft();
         barRectF.right = barRectF.left + barWidth;
         barRectF.bottom = getHeight();
@@ -181,7 +186,7 @@ public class ProgressBar extends View {
         }
 
         if(pinImg != null){
-            pinRectF.left = barRectF.right;
+            pinRectF.left = barRectF.right + pinWidth * 2.4f;
             pinRectF.right = pinRectF.left + pinWidth;
             pinRectF.top = barRectF.top - pinHeight / 2;
             pinRectF.bottom = barRectF.top + pinHeight / 2;

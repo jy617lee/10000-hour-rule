@@ -9,28 +9,32 @@
     android:background="@color/background"
 >
 
+    <tenthousand.hour.law.outliers.utils.StyledEditTextView
+        android:id="@+id/purposeName"
+        android:layout_width="match_parent"
+        android:layout_height="56.3dp"
+        android:textSize="46sp"
+        android:textAlignment="center"
+        app:font="@string/point_font"
+        android:textColorHint="@drawable/selector"
+        android:hint="@string/purpose_example"
+        android:focusable="false"
+        android:background="@null"
+        android:inputType="text"
+        android:maxLines="1"
+        android:layout_marginTop="83dp"
+
+        />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="83dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp">
-            <tenthousand.hour.law.outliers.utils.StyledEditTextView
-                android:id="@+id/purposeName"
-                android:layout_width="match_parent"
-                android:layout_height="56.3dp"
-                android:textSize="46sp"
-                android:textAlignment="center"
-                app:font="@string/point_font"
-                android:textColorHint="@drawable/selector"
-                android:hint="@string/purpose_example"
-                android:focusable="false"
-                android:background="@null"
-                android:inputType="text"
-                android:maxLines="1"
 
-                />
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_below="@id/purposeName">
+
 
             <tenthousand.hour.law.outliers.utils.StyledEditTextView
                 android:id="@+id/purposeDetail"
@@ -40,14 +44,14 @@
                 android:textAlignment="center"
                 app:font="@string/roboto_light"
                 android:textColorHint="@drawable/selector"
-                android:hint="For TOEIC"
+                android:hint="write the reason"
                 android:focusable="false"
                 android:background="@null"
                 android:inputType="text"
                 android:maxLines="1"
                 android:layout_marginTop="7dp"
                 />
-
+w
             <View
                 android:layout_marginTop="65dp"
                 android:layout_width="match_parent"
@@ -79,7 +83,7 @@
                     android:textSize="36.7sp"
                     android:textColor="@color/blue"
                     android:textAlignment="center"
-                    android:hint="100"
+                    android:hint="ex) 100"
                     android:maxWidth="380dp"
                     android:background="@null"
                     app:font="@string/roboto_regular"
@@ -149,7 +153,7 @@
                     android:textSize="24.3sp"
                     android:textColor="@color/blue"
                     android:textAlignment="center"
-                    android:hint="do my best!"
+                    android:hint="ex) do my best!"
                     android:maxWidth="380dp"
                     android:background="@null"
                     app:font="@string/roboto_regular"

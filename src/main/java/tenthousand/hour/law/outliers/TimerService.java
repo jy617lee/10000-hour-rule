@@ -34,7 +34,7 @@ public class TimerService extends IntentService{
         stop = getString(R.string.btnStop);
         statusFlag = stop;
     }
-    final static int INTERVAL = 1000;
+    final static int INTERVAL = 1;
     final static int TIMEOUT = 86400;
     private static Timer mTimer;
 

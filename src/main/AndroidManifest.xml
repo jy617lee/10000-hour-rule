@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_icon"
+        android:icon="@drawable/ic_bof"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
@@ -23,7 +23,7 @@
             />
 
         <meta-data android:name="DATABASE" android:value="records.db" />
-        <meta-data android:name="VERSION" android:value="2" />
+        <meta-data android:name="VERSION" android:value="3.0.1" />
         <meta-data android:name="QUERY_LOG" android:value="true" />
         <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="tenthousand.hour.law.outliers" />
     </application>

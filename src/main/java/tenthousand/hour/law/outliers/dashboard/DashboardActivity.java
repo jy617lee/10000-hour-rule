@@ -12,6 +12,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.orm.SugarContext;
 
@@ -37,7 +38,8 @@ public class DashboardActivity extends AppCompatActivity {
 
     @BindView(R.id.goal)    StyledTextView goal;
     @BindView(R.id.timer)   StyledTextView timer;
-    @BindView(R.id.btnPlay) ImageButton btnStart;
+    @BindView(R.id.btnPlay)
+    ImageView btnStart;
     @BindView(R.id.btnListOrInfo)
     ImageButton btnListOrInfo;
 
@@ -146,8 +148,13 @@ public class DashboardActivity extends AppCompatActivity {
         startTime = dateFormat.format(new Date(System.currentTimeMillis()));
         startTimerService(start);
         Log.d(TAG, startTime);
+        btnStart.setClickable(false);
+        btnPause.setClickable(true);
+        btnStart.setColorFilter(getResources().getColor(R.color.dim));
+        btnPause.setColorFilter(getResources().getColor(R.color.white));
     }
 
+    @BindView(R.id.btnPause) ImageView btnPause;
     @OnClick(R.id.btnPause)
     public void stopTimer(){
             //STOP
@@ -188,6 +195,10 @@ public class DashboardActivity extends AppCompatActivity {
             }
 
             InfographicFragment.setProgressBar( Integer.parseInt(purpose.getGoalTime()), PurposeManager.getCurTime()/3600);
+        btnStart.setClickable(true);
+        btnPause.setClickable(false);
+        btnStart.setColorFilter(null);
+        btnPause.setColorFilter(getResources().getColor(R.color.dim));
     }
 
     public String setAccumulateTime(int accumulation, String goalTime){

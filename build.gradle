@@ -9,8 +9,8 @@ android {
         applicationId "tenthousand.hour.law.outliers"
         minSdkVersion 21
         targetSdkVersion 23
-        versionCode 3
-        versionName "1.0"
+        versionCode 4
+        versionName "2.0.0 design version"
     }
     buildTypes {
         release {
@@ -27,4 +27,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.github.satyan:sugar:1.5'
+    compile 'com.owater.library:CircleTextViewlibrary:0.8.3'
 }

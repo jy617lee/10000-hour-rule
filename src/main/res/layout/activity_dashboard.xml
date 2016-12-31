@@ -26,15 +26,25 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:background="@drawable/ic_graph"/>
-            <tenthousand.hour.law.outliers.utils.StyledTextView
-                android:id="@+id/goal"
+            <HorizontalScrollView
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                app:font="@string/point_font"
-                android:textSize="31.2sp"
-                android:textAlignment="center"
-                android:textColor="@color/dark_black"/>
+                android:scrollbars="none"
+                >
+                    <tenthousand.hour.law.outliers.utils.StyledTextView
+                        android:id="@+id/goal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:font="@string/point_font"
+                        android:textSize="31.2sp"
+                        android:textAlignment="center"
+                        android:textColor="@color/dark_black"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"/>
+
+            </HorizontalScrollView>
+
             <ImageButton
                 android:id="@+id/btnReset"
                 android:layout_width="38dp"
