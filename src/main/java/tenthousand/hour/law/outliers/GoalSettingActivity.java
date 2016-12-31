@@ -59,6 +59,12 @@ public class GoalSettingActivity extends AppCompatActivity {
         if(purposeName.getText().toString().equals("")){
             Toast.makeText(getApplicationContext(), "No Purpose Name", Toast.LENGTH_SHORT).show();
             return false;
+        }else if(time.getText().toString().equals("")){
+            Toast.makeText(getApplicationContext(), "No Goal Time", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(!dateInput){
+            Toast.makeText(getApplicationContext(), "No End date", Toast.LENGTH_SHORT).show();
+            return false;
         }
         return true;
     }
@@ -71,6 +77,7 @@ public class GoalSettingActivity extends AppCompatActivity {
     }
 
     static StyledTextView end;
+    private static boolean dateInput = false;
     @BindView(R.id.purposeName) StyledEditTextView purposeName;
     @BindView(R.id.purposeDetail) StyledEditTextView purposeDetail;
     @BindView(R.id.time)        StyledEditTextView time;
@@ -174,7 +181,7 @@ public class GoalSettingActivity extends AppCompatActivity {
             switch(flag){
                 case Constants.end : {
                     if(!checkEndDate(year, month+1, day)){
-                        Toast.makeText(getContext(), "End cannot be earlier than Start", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "goal date is earlier than today", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if(Build.VERSION.SDK_INT < 23){
@@ -184,6 +191,7 @@ public class GoalSettingActivity extends AppCompatActivity {
                         end.setTextColor(getResources().getColor(R.color.blue, null));
                     }
 
+                    dateInput = true;
                     end.setText(date);
                     break;
                 }
@@ -191,31 +199,26 @@ public class GoalSettingActivity extends AppCompatActivity {
         }
     }
 
-
     public static boolean checkEndDate(int year, int month, int day){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         String date = sdf.format(new Date());
         String startDate[] = date.split("/");
         if(Integer.parseInt(startDate[0]) > year){
             return false;
-        } else if(Integer.parseInt(startDate[1]) > month) {
-            return false;
-        } else if(Integer.parseInt(startDate[2]) > day) {
-            return false;
+        }else if(Integer.parseInt(startDate[0]) == year){
+            if(Integer.parseInt(startDate[1]) > month) {
+                return false;
+            } else if(Integer.parseInt(startDate[1]) == month){
+                if(Integer.parseInt(startDate[2]) >= day) {
+                    return false;
+                }else{
+                    return true;
+                }
+            }else{
+                return true;
+            }
+        }else{
+            return true;
         }
-        return true;
     }
-
-    public static boolean checkStartDate(int year, int month, int day){
-        String endDate[] = end.getText().toString().split("/");
-        if(Integer.parseInt(endDate[0]) < year){
-            return false;
-        } else if(Integer.parseInt(endDate[1]) < month) {
-            return false;
-        } else if(Integer.parseInt(endDate[2]) < day) {
-            return false;
-        }
-        return true;
-    }
-
 }
