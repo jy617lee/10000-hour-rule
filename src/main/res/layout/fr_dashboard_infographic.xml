@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_marginTop="35dp"
-    android:layout_marginBottom="5dp"
 >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
->
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
         <tenthousand.hour.law.outliers.utils.StyledTextView
             android:id="@+id/goalText"
             android:layout_width="wrap_content"
@@ -29,8 +26,7 @@
             android:layout_width="117dp"
             android:layout_height="1dp"
             android:background="#595757"
-            android:layout_toEndOf="@id/goalText"
-            android:layout_marginTop="8dp" />
+            android:layout_toEndOf="@id/goalText" />
 
         <FrameLayout
             android:id="@+id/barLayout"
@@ -94,10 +90,10 @@
             android:textSize="13.3sp"
             android:textColor="@color/text_black"
             app:font="@string/roboto_light"
-            android:layout_marginTop="370dp"
             android:layout_marginStart="85dp"
             android:layout_marginEnd="13.7dp"
-            android:layout_below="@id/goalText"
+            android:layout_alignBottom="@id/barLayout"
+            android:layout_marginTop="3dp"
             />
         <View
             android:id="@+id/bottomLine"
@@ -105,9 +101,9 @@
             android:layout_height="1dp"
             android:background="#595757"
             android:layout_below="@id/barLayout"
-            android:layout_toEndOf="@id/startText" />
+            android:layout_toEndOf="@id/startText"/>
     </RelativeLayout>
 
 
 
-</LinearLayout>
+</RelativeLayout>

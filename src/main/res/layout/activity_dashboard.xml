@@ -50,8 +50,8 @@
     <FrameLayout
         android:id="@+id/frDashboard"
         android:layout_width="match_parent"
-        android:layout_height="480dp"
-        android:layout_below="@+id/purposeSummary"/>
+        android:layout_height="455dp"
+        android:layout_below="@+id/purposeSummary" />
 
     <RelativeLayout
         android:layout_width="match_parent"
