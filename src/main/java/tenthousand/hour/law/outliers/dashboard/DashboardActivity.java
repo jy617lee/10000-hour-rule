@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -55,6 +56,10 @@ public class DashboardActivity extends AppCompatActivity {
 
     SimpleDateFormat dateFormat;
 
+    SharedPreferences timerSP;
+    SharedPreferences.Editor editor;
+    boolean flagTimerOn = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
@@ -71,6 +76,7 @@ public class DashboardActivity extends AppCompatActivity {
         setTimer(initTime);
         listViewFragment();
         btnListOrInfo.setTag(R.drawable.ic_graph);
+
     }
 
     @OnClick(R.id.btnReset)
@@ -127,12 +133,24 @@ public class DashboardActivity extends AppCompatActivity {
         super.onResume();
         IntentFilter filter = new IntentFilter(Constants.tick);
         LocalBroadcastManager.getInstance(this).registerReceiver(timerReciever, filter);
+        if(timerSP == null) timerSP = getApplicationContext().getSharedPreferences(Constants.purposeSP, 0);
+        if(timerSP.getBoolean(Constants.startOrStop, false)){
+            btnStart.setClickable(false);
+            btnStart.setEnabled(false);
+            btnPause.setClickable(true);
+            btnPause.setEnabled(true);
+            btnStart.setColorFilter(getResources().getColor(R.color.dim));
+            btnPause.setColorFilter(getResources().getColor(R.color.white));
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(timerReciever);
+        editor = timerSP.edit();
+        editor.putBoolean(Constants.startOrStop, flagTimerOn);
+        editor.commit();
     }
 
     @Override
@@ -149,9 +167,12 @@ public class DashboardActivity extends AppCompatActivity {
         startTimerService(start);
         Log.d(TAG, startTime);
         btnStart.setClickable(false);
+        btnStart.setEnabled(false);
         btnPause.setClickable(true);
+        btnPause.setEnabled(true);
         btnStart.setColorFilter(getResources().getColor(R.color.dim));
         btnPause.setColorFilter(getResources().getColor(R.color.white));
+        flagTimerOn = true;
     }
 
     @BindView(R.id.btnPause) ImageView btnPause;
@@ -171,6 +192,7 @@ public class DashboardActivity extends AppCompatActivity {
             int[] duration;
             PurposeManager.setCurTime(purpose.getCurTime() + getDuration());
             int curAccumulation = purpose.getCurTime();
+            if(curDate == null) curDate = dateFormat.format(new Date(System.currentTimeMillis()));
             if(curDate.equals(recentDate)){
                 //조건에 맞는 record 찾아오기
                 record = Records.find(Records.class, "day = ?", curDate+"").get(0);
@@ -196,9 +218,12 @@ public class DashboardActivity extends AppCompatActivity {
 
             InfographicFragment.setProgressBar( Integer.parseInt(purpose.getGoalTime()), PurposeManager.getCurTime()/3600);
         btnStart.setClickable(true);
+        btnStart.setEnabled(true);
         btnPause.setClickable(false);
+        btnPause.setEnabled(false);
         btnStart.setColorFilter(null);
         btnPause.setColorFilter(getResources().getColor(R.color.dim));
+        flagTimerOn = false;
     }
 
     public String setAccumulateTime(int accumulation, String goalTime){
